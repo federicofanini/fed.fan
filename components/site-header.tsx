@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { AlignJustify, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import HyperText from "./magicui/hyper-text";
 
 const menuItem = [
   {
@@ -99,11 +100,14 @@ export function SiteHeader() {
     <>
       <header className="fixed left-0 top-0 z-50 w-full translate-y-[-1rem] animate-fade-in border-b opacity-0 backdrop-blur-[12px] [--animation-delay:600ms]">
         <div className="container flex h-[3.5rem] items-center justify-between">
-          <Link className="text-md flex items-center" href="/">
-            Magic UI
+          <Link className="text-xl flex items-center font-extrabold" href="/">
+            <HyperText
+              className="text-4xl font-bold text-black/80 dark:text-white"
+              text="Do What Excite"
+            />
           </Link>
 
-          <div className="ml-auto flex h-full items-center">
+          {/* <div className="ml-auto flex h-full items-center">
             <Link className="mr-6 text-sm" href="/signin">
               Log in
             </Link>
@@ -116,7 +120,7 @@ export function SiteHeader() {
             >
               Sign up
             </Link>
-          </div>
+          </div> */}
           <button
             className="ml-6 md:hidden"
             onClick={() => setHamburgerMenuIsOpen((open) => !open)}
