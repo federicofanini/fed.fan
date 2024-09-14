@@ -2,10 +2,19 @@
 
 import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import { toast } from "sonner";
 
 export async function joinWaitlist(email: string) {
   try {
+    // Check if the user is already on the waitlist
+    const existingUser = await prisma.waitlist.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return { success: false, message: "You're already on the waitlist!" };
+    }
+
+    // If not, add the user to the waitlist
     await prisma.waitlist.create({
       data: {
         email,
@@ -13,9 +22,9 @@ export async function joinWaitlist(email: string) {
     });
 
     revalidatePath("/");
-    return { success: true, message: "Waitlist successfully joined" };
+    return { success: true, message: "Waitlist successfully joined :)" };
   } catch (error) {
     console.error("Error joining waitlist:", error);
-    return { success: false, message: "ERROR: Please try again" };
+    return { success: false, message: "Something went wrong, please try again." };
   }
 }

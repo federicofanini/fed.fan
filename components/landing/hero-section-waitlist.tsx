@@ -36,9 +36,17 @@ export default function HeroSectionWaitlist() {
           const email = e.currentTarget.email.value;
           const result = await joinWaitlist(email);
           if (result.success) {
-            toast.success(result.message);
+            toast.success(result.message, {
+              icon: "✅",
+            });
+          } else if (result.message === "You're already on the waitlist!") {
+            toast.success(result.message, {
+              icon: "✅",
+            });
           } else {
-            toast.error(result.message);
+            toast.error(result.message, {
+              icon: "❌",
+            });
           }
         }} className="flex items-center gap-2 bg-white/5 backdrop-blur-sm p-1 rounded-full border border-white/10">
           <Input
