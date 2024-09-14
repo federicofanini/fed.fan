@@ -8,6 +8,8 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Input } from "../ui/input";
 import Image from "next/image";
+import { joinWaitlist } from "@/app/actions";
+import { toast } from "sonner";
 
 export default function HeroSectionWaitlist() {
   const ref = useRef(null);
@@ -29,13 +31,24 @@ export default function HeroSectionWaitlist() {
         <br className="hidden md:block" /> next million-dollar startup venture
       </p>
       <div className="translate-y-[-1rem] animate-fade-in opacity-0 ease-in-out [--animation-delay:600ms] max-w-md mx-auto">
-        <form className="flex items-center gap-2 bg-white/5 backdrop-blur-sm p-1 rounded-full border border-white/10">
+        <form onSubmit={async (e) => {
+          e.preventDefault();
+          const email = e.currentTarget.email.value;
+          const result = await joinWaitlist(email);
+          if (result.success) {
+            toast.success(result.message);
+          } else {
+            toast.error(result.message);
+          }
+        }} className="flex items-center gap-2 bg-white/5 backdrop-blur-sm p-1 rounded-full border border-white/10">
           <Input
             type="email"
+            name="email"
             placeholder="Enter your email"
             className="flex-grow bg-transparent text-sm text-primary placeholder-white/50 px-4 py-2 focus:outline-none rounded-full"
+            required
           />
-          <Button className="rounded-full text-sm px-4 py-2 bg-white text-black hover:bg-[#37ecba]/90 transition-colors">
+          <Button type="submit" className="rounded-full text-sm px-4 py-2 bg-white text-black hover:bg-[#37ecba]/90 transition-colors">
             Join Waitlist
           </Button>
         </form>
