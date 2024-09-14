@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import HyperText from "./magicui/hyper-text";
 
 const menuItem = [
-  {
+  {/*
     id: 1,
     label: "Features",
     href: "/features",
@@ -29,6 +29,7 @@ const menuItem = [
     label: "Contact Us",
     href: "#",
   },
+  */}
 ];
 
 export function SiteHeader() {
@@ -145,7 +146,7 @@ export function SiteHeader() {
         >
           <div className="container flex h-[3.5rem] items-center justify-between">
             <Link className="text-md flex items-center" href="/">
-              Magic UI
+              Do What Excite
             </Link>
 
             <button
