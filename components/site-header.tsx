@@ -9,6 +9,11 @@ import { useEffect, useState } from "react";
 import HyperText from "./magicui/hyper-text";
 
 const menuItem = [
+  {
+    id: 1,
+    label: "Home",
+    href: "/",
+  },
   {/*
     id: 1,
     label: "Features",
