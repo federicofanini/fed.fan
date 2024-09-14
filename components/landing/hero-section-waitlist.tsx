@@ -10,6 +10,7 @@ import { Input } from "../ui/input";
 import Image from "next/image";
 import { joinWaitlist } from "@/app/actions";
 import { toast } from "sonner";
+import UserJoined from "./user-joined";
 
 export default function HeroSectionWaitlist() {
   const ref = useRef(null);
@@ -60,7 +61,8 @@ export default function HeroSectionWaitlist() {
             Join Waitlist
           </Button>
         </form>
-        <p className="text-xs text-black/60 mt-2">Join our waitlist for early access</p>
+        <p className="text-xs text-white/80 mt-2">Join our waitlist for early access</p>
+        <UserJoined />
       </div>
       <div
         ref={ref}

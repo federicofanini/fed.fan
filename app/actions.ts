@@ -28,3 +28,15 @@ export async function joinWaitlist(email: string) {
     return { success: false, message: "Something went wrong, please try again." };
   }
 }
+
+export async function getWaitlistCount() {
+  try {
+    const count = await prisma.waitlist.count();
+    return count;
+  } catch (error) {
+    console.error("Error counting waitlist entries:", error);
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
