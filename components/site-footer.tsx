@@ -56,12 +56,12 @@ const footerNavs = [
 
 const footerSocials = [
   {
-    href: "",
+    href: "/discord",
     name: "Discord",
     icon: <DiscordLogoIcon className="h-4 w-4" />,
   },
   {
-    href: "",
+    href: "/twitter",
     name: "Twitter",
     icon: <TwitterLogoIcon className="h-4 w-4" />,
   },
