@@ -48,7 +48,7 @@ export default function HeroSectionWaitlist() {
               icon: "❌",
             });
           }
-        }} className="flex items-center gap-2 bg-white/5 backdrop-blur-sm p-1 rounded-full border border-white/10">
+        }} className="flex items-center gap-2backdrop-blur-sm p-1 rounded-full">
           <Input
             type="email"
             name="email"
