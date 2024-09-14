@@ -10,7 +10,6 @@ export default async function Page() {
     <>
       <HeroSectionWaitlist />
       <SphereMask />
-      <ClientSection />
       <Particles
         className="absolute inset-0 -z-10"
         quantity={5000}

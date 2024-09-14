@@ -4,19 +4,19 @@ import HyperText from "./magicui/hyper-text";
 
 const footerNavs = [
   {
-    label: "Product",
+    label: "Ideas",
     items: [
       {
-        href: "/",
-        name: "Email Collection",
+        href: "#",
+        name: "B2C SaaS",
       },
       {
-        href: "/pricing",
-        name: "Pricing",
+        href: "#",
+        name: "B2B SaaS",
       },
       {
-        href: "/faq",
-        name: "FAQ",
+        href: "#",
+        name: "E-commerce",
       },
     ],
   },
@@ -25,16 +25,16 @@ const footerNavs = [
     label: "Community",
     items: [
       {
-        href: "/",
+        href: "/discord",
         name: "Discord",
       },
       {
-        href: "/",
+        href: "/twitter",
         name: "Twitter",
       },
       {
-        href: "mailto:hello@chatcollect.com",
-        name: "Email",
+        href: "mailto:f@fanini.eu",
+        name: "Email me",
       },
     ],
   },
