@@ -14,27 +14,26 @@ const menuItem = [
     label: "Home",
     href: "/",
   },
-  {/*
-    id: 1,
-    label: "Features",
-    href: "/features",
-  },
   {
-    id: 2,
-    label: "Pricing",
-    href: "#",
-  },
-  {
-    id: 3,
-    label: "Careers",
-    href: "#",
+    id: 5,
+    label: "Twitter",
+    href: "/twitter",
   },
   {
     id: 4,
-    label: "Contact Us",
-    href: "#",
+    label: "Discord",
+    href: "/discord",
   },
-  */}
+  {
+    id: 2,
+    label: "Terms",
+    href: "/terms",
+  },
+  {
+    id: 3,
+    label: "Privacy",
+    href: "/privacy",
+  },
 ];
 
 export function SiteHeader() {
