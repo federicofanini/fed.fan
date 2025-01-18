@@ -35,7 +35,9 @@ export const fetchUserStackAction = createSafeActionClient()
         },
         select: {
           id: true,
-          stack: true,
+          category: true,
+          subcategory: true,
+          item: true,
         },
         orderBy: {
           created_at: "desc",

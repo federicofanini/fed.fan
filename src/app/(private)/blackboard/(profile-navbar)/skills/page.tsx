@@ -9,22 +9,36 @@ import { fetchUserSkillsAction } from "@/actions/skills/fetch";
 import { updateSkillAction } from "@/actions/skills/update";
 import { deleteSkillAction } from "@/actions/skills/delete";
 import { toast } from "sonner";
-import { Trash2, Star } from "lucide-react";
+import { Trash2, Star, Hexagon } from "lucide-react";
+import { skillsMap } from "@/components/website/skills_stack_map";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 interface Skill {
   id: string;
-  skill: string;
+  skill_id: string;
+  category: string;
   level: number;
 }
 
 export default function SkillsPage() {
   const [skills, setSkills] = useState<Skill[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [newSkill, setNewSkill] = useState<Partial<Skill>>({
-    skill: "",
+    skill_id: "",
+    category: "",
     level: 1,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [selectedSkillCategory, setSelectedSkillCategory] =
+    useState<string>("");
 
   useEffect(() => {
     fetchSkills();
@@ -35,7 +49,7 @@ export default function SkillsPage() {
     if (result?.data?.success && result?.data?.data) {
       setSkills(result.data.data as Skill[]);
     } else {
-      toast.error(result?.data?.error || "Failed to fetch skills");
+      toast.error(result?.data?.error || "failed to fetch skills");
     }
   }
 
@@ -49,18 +63,41 @@ export default function SkillsPage() {
     }));
   }
 
+  function handleCategoryChange(value: string) {
+    setSelectedSkillCategory(value);
+    setNewSkill((prev) => ({
+      ...prev,
+      category: value,
+      skill_id: "", // reset skill when category changes
+    }));
+  }
+
+  function handleSkillChange(value: string) {
+    setNewSkill((prev) => ({
+      ...prev,
+      skill_id: value,
+    }));
+  }
+
+  function handleLevelChange(value: string) {
+    setNewSkill((prev) => ({
+      ...prev,
+      level: parseInt(value),
+    }));
+  }
+
   async function handleDelete(skillId: string) {
     setIsDeleting(skillId);
     try {
       const result = await deleteSkillAction({ id: skillId });
       if (result?.data?.success) {
-        toast.success("Skill deleted successfully!");
+        toast.success("skill deleted successfully!");
         await fetchSkills();
       } else {
-        toast.error(result?.data?.error || "Failed to delete skill");
+        toast.error(result?.data?.error || "failed to delete skill");
       }
     } catch (error) {
-      toast.error("An unexpected error occurred");
+      toast.error("an unexpected error occurred");
     } finally {
       setIsDeleting(null);
     }
@@ -72,93 +109,157 @@ export default function SkillsPage() {
 
     try {
       const result = await updateSkillAction({
-        skill: newSkill.skill || "",
+        skill_id: newSkill.skill_id || "",
+        category: newSkill.category || "",
         level: newSkill.level || 1,
       });
 
       if (result?.data?.success) {
-        toast.success("Skill added successfully!");
+        toast.success("skill added successfully!");
         setNewSkill({
-          skill: "",
+          skill_id: "",
+          category: selectedSkillCategory,
           level: 1,
         });
         await fetchSkills();
       } else {
-        toast.error(result?.data?.error || "Failed to add skill");
+        toast.error(result?.data?.error || "failed to add skill");
       }
     } catch (error) {
-      toast.error("An unexpected error occurred");
+      toast.error("an unexpected error occurred");
     } finally {
       setIsSubmitting(false);
     }
   }
 
+  const filteredSkills = selectedCategory
+    ? skills.filter((skill) => skill.category === selectedCategory)
+    : skills;
+
   return (
     <Card className="border-none">
       <CardHeader>
-        <CardTitle>Skills</CardTitle>
+        <CardTitle>skills</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Add Skill Form */}
+          {/* add skill form */}
           <div>
             <Card>
               <CardHeader>
-                <CardTitle>Add new skill</CardTitle>
+                <CardTitle>add new skill</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <Label htmlFor="skill">Skill Name</Label>
-                    <Input
-                      id="skill"
-                      name="skill"
-                      value={newSkill.skill}
-                      onChange={handleNewSkillChange}
-                      required
-                    />
+                    <Label htmlFor="category">category</Label>
+                    <Select
+                      value={selectedSkillCategory}
+                      onValueChange={handleCategoryChange}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="select a category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {skillsMap.categories.map((category) => (
+                          <SelectItem key={category.id} value={category.id}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div>
-                    <Label htmlFor="level">Proficiency Level (1-5)</Label>
-                    <Input
-                      id="level"
-                      name="level"
-                      type="number"
-                      min="1"
-                      max="5"
-                      value={newSkill.level}
-                      onChange={handleNewSkillChange}
-                      required
-                    />
+                    <Label htmlFor="skill">skill</Label>
+                    <Select
+                      value={newSkill.skill_id}
+                      onValueChange={handleSkillChange}
+                      disabled={!selectedSkillCategory}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="select a skill" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {selectedSkillCategory &&
+                          skillsMap.categories
+                            .find((c) => c.id === selectedSkillCategory)
+                            ?.skills.map((skill) => (
+                              <SelectItem key={skill.id} value={skill.id}>
+                                {skill.name}
+                              </SelectItem>
+                            ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label>proficiency level</Label>
+                    <ToggleGroup
+                      type="single"
+                      value={newSkill.level?.toString()}
+                      onValueChange={handleLevelChange}
+                      className="justify-start mt-2"
+                    >
+                      {[1, 2, 3, 4, 5].map((level) => (
+                        <ToggleGroupItem
+                          key={level}
+                          value={level.toString()}
+                          aria-label={`level ${level}`}
+                          className="size-6 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+                        >
+                          {level}
+                        </ToggleGroupItem>
+                      ))}
+                    </ToggleGroup>
                   </div>
 
                   <Button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !newSkill.skill_id}
                     className="w-full"
                   >
-                    {isSubmitting ? "Adding..." : "Add Skill"}
+                    {isSubmitting ? "adding..." : "add skill"}
                   </Button>
                 </form>
               </CardContent>
             </Card>
           </div>
 
-          {/* Skills List */}
+          {/* skills list */}
           <div>
             <Card>
               <CardHeader>
-                <CardTitle>Your Skills</CardTitle>
+                <div className="flex justify-between items-center">
+                  <CardTitle>your skills</CardTitle>
+                  <Select
+                    value={selectedCategory || "all"}
+                    onValueChange={(value) =>
+                      setSelectedCategory(value === "all" ? null : value)
+                    }
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="filter by category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">all categories</SelectItem>
+                      {skillsMap.categories.map((category) => (
+                        <SelectItem key={category.id} value={category.id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {skills.length === 0 ? (
+                  {filteredSkills.length === 0 ? (
                     <p className="text-center text-gray-500">
-                      No skills added yet
+                      no skills added yet
                     </p>
                   ) : (
-                    skills.map((skill) => (
+                    filteredSkills.map((skill) => (
                       <Card
                         key={skill.id}
                         className="hover:shadow-md transition-shadow"
@@ -166,14 +267,24 @@ export default function SkillsPage() {
                         <CardContent className="p-4">
                           <div className="flex justify-between items-center">
                             <div>
-                              <h3 className="font-semibold">{skill.skill}</h3>
+                              <h3 className="font-semibold">
+                                {skillsMap.categories
+                                  .find((c) => c.id === skill.category)
+                                  ?.skills.find((s) => s.id === skill.skill_id)
+                                  ?.name || skill.skill_id}
+                              </h3>
+                              <p className="text-sm text-gray-500">
+                                {skillsMap.categories.find(
+                                  (c) => c.id === skill.category
+                                )?.name || skill.category}
+                              </p>
                               <div className="flex gap-1 mt-1">
                                 {Array.from({ length: 5 }).map((_, index) => (
-                                  <Star
+                                  <Hexagon
                                     key={index}
                                     className={`h-4 w-4 ${
                                       index < skill.level
-                                        ? "text-yellow-400 fill-yellow-400"
+                                        ? "text-blue-400 fill-blue-400"
                                         : "text-gray-300"
                                     }`}
                                   />

@@ -8,7 +8,9 @@ import { createClient } from "@/utils/supabase/server";
 import { appErrors } from "../types/errors";
 
 const schema = z.object({
-  stack: z.string(),
+  category: z.string(),
+  subcategory: z.string(),
+  item: z.string(),
 });
 
 export const updateStackAction = createSafeActionClient()
@@ -33,7 +35,9 @@ export const updateStackAction = createSafeActionClient()
       const newStack = await prisma.stack.create({
         data: {
           user_id: user.id,
-          stack: input.parsedInput.stack,
+          category: input.parsedInput.category,
+          subcategory: input.parsedInput.subcategory,
+          item: input.parsedInput.item,
         },
       });
 

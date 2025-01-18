@@ -35,7 +35,8 @@ export const fetchUserSkillsAction = createSafeActionClient()
         },
         select: {
           id: true,
-          skill: true,
+          category: true,
+          skill_id: true,
           level: true,
         },
         orderBy: {

@@ -10,15 +10,30 @@ import { updateStackAction } from "@/actions/stack/update";
 import { deleteStackAction } from "@/actions/stack/delete";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
+import { techStack } from "@/components/website/skills_stack_map";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Stack {
   id: string;
-  stack: string;
+  category: string;
+  subcategory: string;
+  item: string;
 }
 
 export default function StackPage() {
   const [stacks, setStacks] = useState<Stack[]>([]);
-  const [newStack, setNewStack] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [newStack, setNewStack] = useState<Partial<Stack>>({
+    category: "",
+    subcategory: "",
+    item: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
 
@@ -58,12 +73,18 @@ export default function StackPage() {
 
     try {
       const result = await updateStackAction({
-        stack: newStack,
+        category: newStack.category || "",
+        subcategory: newStack.subcategory || "",
+        item: newStack.item || "",
       });
 
       if (result?.data?.success) {
         toast.success("Tech stack item added successfully!");
-        setNewStack("");
+        setNewStack({
+          category: newStack.category,
+          subcategory: "",
+          item: "",
+        });
         await fetchStacks();
       } else {
         toast.error(result?.data?.error || "Failed to add tech stack item");
@@ -74,6 +95,10 @@ export default function StackPage() {
       setIsSubmitting(false);
     }
   }
+
+  const filteredStacks = selectedCategory
+    ? stacks.filter((stack) => stack.category === selectedCategory)
+    : stacks;
 
   return (
     <Card className="border-none">
@@ -91,19 +116,95 @@ export default function StackPage() {
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <Label htmlFor="stack">Technology Name</Label>
-                    <Input
-                      id="stack"
-                      value={newStack}
-                      onChange={(e) => setNewStack(e.target.value)}
-                      required
-                      placeholder="e.g., React, Node.js, TypeScript"
-                    />
+                    <Label htmlFor="category">Category</Label>
+                    <Select
+                      value={newStack.category}
+                      onValueChange={(value) =>
+                        setNewStack((prev) => ({
+                          ...prev,
+                          category: value,
+                          subcategory: "",
+                          item: "",
+                        }))
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {techStack.map((category) => (
+                          <SelectItem
+                            key={category.category}
+                            value={category.category}
+                          >
+                            {category.category}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="subcategory">Subcategory</Label>
+                    <Select
+                      value={newStack.subcategory}
+                      onValueChange={(value) =>
+                        setNewStack((prev) => ({
+                          ...prev,
+                          subcategory: value,
+                          item: "",
+                        }))
+                      }
+                      disabled={!newStack.category}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a subcategory" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {newStack.category &&
+                          techStack
+                            .find((c) => c.category === newStack.category)
+                            ?.subcategories.map((sub) => (
+                              <SelectItem key={sub.name} value={sub.name}>
+                                {sub.name}
+                              </SelectItem>
+                            ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="item">Technology</Label>
+                    <Select
+                      value={newStack.item}
+                      onValueChange={(value) =>
+                        setNewStack((prev) => ({ ...prev, item: value }))
+                      }
+                      disabled={!newStack.subcategory}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a technology" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {newStack.category &&
+                          newStack.subcategory &&
+                          techStack
+                            .find((c) => c.category === newStack.category)
+                            ?.subcategories.find(
+                              (s) => s.name === newStack.subcategory
+                            )
+                            ?.items.map((item) => (
+                              <SelectItem key={item} value={item}>
+                                {item}
+                              </SelectItem>
+                            ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <Button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !newStack.item}
                     className="w-full"
                   >
                     {isSubmitting ? "Adding..." : "Add Technology"}
@@ -117,23 +218,51 @@ export default function StackPage() {
           <div>
             <Card>
               <CardHeader>
-                <CardTitle>Your Tech Stack</CardTitle>
+                <div className="flex justify-between items-center">
+                  <CardTitle>Your Tech Stack</CardTitle>
+                  <Select
+                    value={selectedCategory || "all"}
+                    onValueChange={(value) =>
+                      setSelectedCategory(value === "all" ? null : value)
+                    }
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Filter by category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All categories</SelectItem>
+                      {techStack.map((category) => (
+                        <SelectItem
+                          key={category.category}
+                          value={category.category}
+                        >
+                          {category.category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {stacks.length === 0 ? (
+                  {filteredStacks.length === 0 ? (
                     <p className="text-center text-gray-500">
                       No tech stack items added yet
                     </p>
                   ) : (
-                    stacks.map((stack) => (
+                    filteredStacks.map((stack) => (
                       <Card
                         key={stack.id}
                         className="hover:shadow-md transition-shadow"
                       >
                         <CardContent className="p-4">
                           <div className="flex justify-between items-center">
-                            <h3 className="font-semibold">{stack.stack}</h3>
+                            <div>
+                              <h3 className="font-semibold">{stack.item}</h3>
+                              <p className="text-sm text-gray-500">
+                                {stack.category} / {stack.subcategory}
+                              </p>
+                            </div>
                             <Button
                               variant="ghost"
                               size="icon"

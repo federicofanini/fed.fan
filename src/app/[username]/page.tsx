@@ -11,7 +11,14 @@ type PageParams = { username: string };
 
 // The dynamic route component
 export default async function Founder({ params }: { params: PageParams }) {
-  const founderData = await getFounderProfile(params.username);
+  const result = await getFounderProfile({ username: params.username });
+
+  if (!result?.data?.success || !result?.data?.data) {
+    // Handle error case
+    return <div>Profile not found</div>;
+  }
+
+  const founderData = result.data.data;
 
   // Transform dates to strings for projects and handle null values
   const founder: FounderType = {
@@ -30,28 +37,35 @@ export default async function Founder({ params }: { params: PageParams }) {
     telegram: founderData.telegram || undefined,
     bsky: founderData.bsky || undefined,
     contactEmail: founderData.contactEmail || undefined,
-    projects: founderData.projects.map((project) => ({
-      ...project,
-      created_at: project.created_at.toISOString(),
-      updated_at: project.updated_at.toISOString(),
-    })),
-    skills: founderData.skills.map((skill) => ({
-      id: skill.id,
-      skill: skill.skill,
-      level: skill.level,
-    })),
-    education: founderData.education.map((education) => ({
-      id: education.id,
-      school: education.school,
-      degree: education.degree,
-      field_of_study: education.field_of_study,
-      start_date: education.start_date.toISOString(),
-      end_date: education.end_date.toISOString(),
-    })),
-    stack: founderData.stack.map((stack) => ({
-      id: stack.id,
-      stack: stack.stack,
-    })),
+    projects:
+      founderData.projects?.map((project: any) => ({
+        ...project,
+        created_at: project.created_at.toISOString(),
+        updated_at: project.updated_at.toISOString(),
+      })) || [],
+    skills:
+      founderData.skills?.map((skill: any) => ({
+        id: skill.id,
+        skill: skill.skill_id,
+        level: skill.level,
+        category: skill.category,
+      })) || [],
+    education:
+      founderData.education?.map((education: any) => ({
+        id: education.id,
+        school: education.school,
+        degree: education.degree,
+        field_of_study: education.field_of_study,
+        start_date: education.start_date?.toISOString() || "",
+        end_date: education.end_date?.toISOString() || "",
+      })) || [],
+    stack:
+      founderData.stack?.map((stack: any) => ({
+        id: stack.id,
+        category: stack.category,
+        subcategory: stack.subcategory,
+        item: stack.item,
+      })) || [],
   };
 
   return (
@@ -68,9 +82,27 @@ export async function generateMetadata({
 }: {
   params: PageParams;
 }): Promise<Metadata> {
-  const founder = await getFounderProfile(params.username);
-  return {
-    title: founder?.full_name || founder?.username || "Profile",
-    description: founder?.bio || "Founder profile",
-  };
+  try {
+    const result = await getFounderProfile({ username: params.username });
+
+    if (!result?.data?.success || !result?.data?.data) {
+      return {
+        title: "Profile",
+        description: "Founder profile",
+      };
+    }
+
+    return {
+      title:
+        result?.data?.data?.full_name ||
+        result?.data?.data?.username ||
+        "Profile",
+      description: result?.data?.data?.bio || "Founder profile",
+    };
+  } catch (error) {
+    return {
+      title: "Profile",
+      description: "Founder profile",
+    };
+  }
 }

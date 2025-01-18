@@ -8,8 +8,9 @@ import { createClient } from "@/utils/supabase/server";
 import { appErrors } from "../types/errors";
 
 const schema = z.object({
-  skill: z.string(),
+  skill_id: z.string(),
   level: z.number().min(1).max(5),
+  category: z.string(),
 });
 
 export const updateSkillAction = createSafeActionClient()
@@ -34,8 +35,9 @@ export const updateSkillAction = createSafeActionClient()
       const newSkill = await prisma.skills.create({
         data: {
           user_id: user.id,
-          skill: input.parsedInput.skill,
+          skill_id: input.parsedInput.skill_id,
           level: input.parsedInput.level,
+          category: input.parsedInput.category,
         },
       });
 
