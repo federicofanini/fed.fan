@@ -2,9 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "GymBrah",
-    short_name: "GymBrah",
-    description: "Build your dream body with habits that last",
+    name: "fed.fan",
+    short_name: "fed.fan",
+    description:
+      "Redefines personal branding. It’s where the builders of tomorrow turn connections into collaborations and admirers into advocates. This isn’t just another profile—it’s your story, and the world is watching.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

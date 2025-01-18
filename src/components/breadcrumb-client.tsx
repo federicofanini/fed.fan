@@ -31,9 +31,7 @@ export function BreadcrumbClient() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
-        </BreadcrumbItem>
+        <BreadcrumbItem></BreadcrumbItem>
         <BreadcrumbSeparator />
         {segments.map((segment, index) => (
           <BreadcrumbItem key={segment.href}>

@@ -32,9 +32,14 @@ model user {
   customer_id String?
   plan_id     String?
 
-  created_at DateTime   @default(now())
-  updated_at DateTime   @updatedAt
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
   feedback   feedback[]
+  skills     skills[]
+  projects   projects[]
+  education  education[]
+  hobbies    hobbies[]
+  stack      stack[]
 }
 
 model waitlist {
@@ -57,4 +62,58 @@ model feedback {
   updated_at DateTime @updatedAt
 
   @@index([user_id])
+}
+
+model skills {
+  id      String @id @default(uuid())
+  user_id String
+  user    user   @relation(fields: [user_id], references: [id])
+  skill   String
+  level   Int
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model projects {
+  id          String @id @default(uuid())
+  user_id     String
+  user        user   @relation(fields: [user_id], references: [id])
+  name        String
+  description String
+  url         String
+  image_url   String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model education {
+  id         String   @id @default(uuid())
+  user_id    String
+  user       user     @relation(fields: [user_id], references: [id])
+  school     String
+  degree     String
+  start_date DateTime
+  end_date   DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model hobbies {
+  id         String   @id @default(uuid())
+  user_id    String
+  user       user     @relation(fields: [user_id], references: [id])
+  hobby      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model stack {
+  id         String   @id @default(uuid())
+  user_id    String
+  user       user     @relation(fields: [user_id], references: [id])
+  stack      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }

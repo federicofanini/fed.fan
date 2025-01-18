@@ -15,7 +15,7 @@ import {
 
 import Image from "next/image";
 import Link from "next/link";
-import { NavFitness } from "./nav-fitness";
+import { NavProfile } from "./nav-profile";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -24,21 +24,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild className="border-b">
-              <Link href="/dashboard">
-                <Image
-                  src="/logo.svg"
-                  alt="Logo"
-                  width={50}
-                  height={50}
-                  className="w-full h-full object-contain"
-                />
+              <Link href="/blackboard">
+                <span className="text-2xl font-bold font-mono text-center">
+                  fed.fan
+                </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavFitness />
+        <NavProfile />
         <NavSecondary className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

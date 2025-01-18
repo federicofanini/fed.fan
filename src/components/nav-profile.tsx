@@ -13,16 +13,16 @@ import {
 
 import { sidebarItems } from "@/lib/sidebar-item";
 
-export function NavFitness() {
+export function NavProfile() {
   const pathname = usePathname();
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel className="font-mono tracking-widest">
-        FITNESS
+        PROFILE
       </SidebarGroupLabel>
       <SidebarMenu>
-        {sidebarItems.fitness.map((item) => {
+        {sidebarItems.profile.map((item) => {
           const IconComponent = item.icon;
           const isActive = pathname === item.url;
 

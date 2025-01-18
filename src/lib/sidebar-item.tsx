@@ -21,6 +21,8 @@ import {
   HeartPulse,
   Code,
   Dot,
+  Globe,
+  ToyBrick,
 } from "lucide-react";
 
 export const sidebarItems = {
@@ -72,26 +74,42 @@ export const sidebarItems = {
       icon: Feather,
     },
   ],
-  fitness: [
+  profile: [
     {
-      name: "Blackboard",
-      url: "/blackboard",
-      icon: Frame,
+      name: "profile",
+      url: "/blackboard/profile",
+      icon: User,
     },
     {
-      name: "Workouts",
-      url: "/blackboard/workouts",
+      name: "projects",
+      url: "/blackboard/projects",
+      icon: ToyBrick,
+    },
+
+    {
+      name: "skills",
+      url: "/blackboard/skills",
       icon: Dumbbell,
     },
     {
-      name: "Achievements",
-      url: "/blackboard/achievements",
-      icon: Trophy,
+      name: "education",
+      url: "/blackboard/education",
+      icon: BookOpen,
     },
     {
-      name: "Health Profile",
-      url: "/blackboard/health-profile",
+      name: "hobbies",
+      url: "/blackboard/hobbies",
       icon: HeartPulse,
+    },
+    {
+      name: "stack",
+      url: "/blackboard/stack",
+      icon: Code,
+    },
+    {
+      name: "website",
+      url: "/blackboard/website",
+      icon: Globe,
     },
   ],
   coding: [

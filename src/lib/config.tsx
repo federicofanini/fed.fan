@@ -17,39 +17,29 @@ import {
 export const BLUR_FADE_DELAY = 0.15;
 
 export const siteConfig = {
-  name: "GymBrah",
-  description: "Build better tiny habits to get fit and healthy.",
+  name: "fed.fan",
+  description:
+    "redefines personal branding. It’s where the builders of tomorrow turn connections into collaborations. This isn’t just another profile—it’s your story, and the world is watching.",
   cta: "Start now",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   keywords: [
-    "tiny habits",
-    "fitness",
-    "health",
-    "habits",
-    "AI",
-    "health coach",
-    "AI health coach",
-    "AI fitness coach",
-    "AI health coach",
-    "AI fitness coach",
-    "gym",
-    "exercise",
-    "workout",
-    "health",
+    "personal branding",
+    "personal website",
+    "personal website builder",
   ],
   links: {
-    email: "support@gymbrah.com",
-    twitter: "https://twitter.com/gymbrah",
-    discord: "https://discord.gg/gymbrah",
-    github: "https://github.com/gymbrah",
-    instagram: "https://instagram.com/gymbrah",
+    email: "hello@fed.fan",
+    twitter: "https://twitter.com/fedfan",
+    discord: "https://discord.gg/fedfan",
+    github: "https://github.com/fedfan",
+    instagram: "https://instagram.com/fedfan",
   },
   hero: {
-    title: "Build your dream body with habits that last",
+    title: "Redefines personal branding",
     description:
-      "Transform your fitness journey with GymBrah's intelligent workout tracking, personalized habit building, and AI-powered accountability coaching. Join thousands building sustainable fitness habits that last.",
-    cta: "Start your fitness journey",
-    ctaDescription: "10+ founders are building tiny habits",
+      "builders of tomorrow turn connections into collaborations. This isn’t just another profile — it’s your story, and the world is watching.",
+    cta: "Start now",
+    ctaDescription: "10+ founders are showing up",
   },
   features: [
     {
