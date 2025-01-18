@@ -97,11 +97,6 @@ export const sidebarItems = {
       icon: BookOpen,
     },
     {
-      name: "hobbies",
-      url: "/blackboard/hobbies",
-      icon: HeartPulse,
-    },
-    {
       name: "stack",
       url: "/blackboard/stack",
       icon: Code,
