@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Medal, Zap } from "lucide-react";
-import { getPoints } from "@/actions/leaderboard/get-points";
+// import { getPoints } from "@/actions/leaderboard/get-points";
 import { getUser } from "@/utils/supabase/database/cached-queries";
 import {
   Table,
@@ -25,27 +25,27 @@ interface LeaderboardEntry {
 }
 
 export async function LeaderboardTable() {
-  const response = await getPoints();
+  // const response = await getPoints();
 
-  if (!response?.data?.success || !response?.data?.data) {
-    return <div>Failed to load leaderboard</div>;
-  }
+  // if (!response?.data?.success || !response?.data?.data) {
+  //   return <div>Failed to load leaderboard</div>;
+  // }
 
   // Map users and set default values if no gamification stats
-  const leaderboardData = response.data.data.map((entry: LeaderboardEntry) => ({
-    ...entry,
-    points: entry.points || 0,
-    level: entry.level || 1,
-    streak_days: entry.streak_days || 0,
-  }));
+  // const leaderboardData = response.data.data.map((entry: LeaderboardEntry) => ({
+  //   ...entry,
+  //   points: entry.points || 0,
+  //   level: entry.level || 1,
+  //   streak_days: entry.streak_days || 0,
+  // }));
 
   // Sort by points and add rank
-  const sortedLeaderboard = leaderboardData
-    .sort((a: LeaderboardEntry, b: LeaderboardEntry) => b.points - a.points)
-    .map((entry: LeaderboardEntry, index: number) => ({
-      ...entry,
-      rank: index + 1,
-    }));
+  // const sortedLeaderboard = leaderboardData
+  //   .sort((a: LeaderboardEntry, b: LeaderboardEntry) => b.points - a.points)
+  //   .map((entry: LeaderboardEntry, index: number) => ({
+  //     ...entry,
+  //     rank: index + 1,
+  //   }));
 
   const getRankEmoji = (rank: number) => {
     switch (rank) {
@@ -96,7 +96,7 @@ export async function LeaderboardTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sortedLeaderboard.map((entry: LeaderboardEntry) => (
+              {/* {sortedLeaderboard.map((entry: LeaderboardEntry) => (
                 <TableRow key={entry.user_id}>
                   <TableCell className="font-medium px-2 sm:px-4">
                     {getRankEmoji(entry.rank)}
@@ -124,7 +124,7 @@ export async function LeaderboardTable() {
                     {entry.streak_days} days
                   </TableCell>
                 </TableRow>
-              ))}
+              ))} */}
             </TableBody>
           </Table>
         </div>

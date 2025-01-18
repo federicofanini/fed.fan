@@ -7,14 +7,13 @@ import { getFounderProfile } from "@/actions/username/getFounderProfile";
 import { JoinCTA } from "@/components/website/join-cta";
 
 // Define the type for the dynamic route params
-type PageParams = { username: string };
+type PageParams = { username: string } & Promise<any>;
 
 // The dynamic route component
 export default async function Founder({ params }: { params: PageParams }) {
   const result = await getFounderProfile({ username: params.username });
 
   if (!result?.data?.success || !result?.data?.data) {
-    // Handle error case
     return <div>Profile not found</div>;
   }
 

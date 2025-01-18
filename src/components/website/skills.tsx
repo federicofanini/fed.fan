@@ -1,4 +1,6 @@
 import { Badge } from "../ui/badge";
+import { skillsMap } from "./skills_stack_map";
+import { Hexagon } from "lucide-react";
 
 export interface Skill {
   id: string;
@@ -18,10 +20,12 @@ export function Skills({ skills }: { skills: Skill[] }) {
 
   // Group skills by category
   const groupedSkills = skills.reduce((acc, skill) => {
-    if (!acc[skill.category]) {
-      acc[skill.category] = [];
+    const category =
+      skillsMap.categories.find((c) => c.id === skill.category)?.name || "";
+    if (!acc[category]) {
+      acc[category] = [];
     }
-    acc[skill.category].push(skill);
+    acc[category].push(skill);
     return acc;
   }, {} as Record<string, Skill[]>);
 
@@ -29,16 +33,35 @@ export function Skills({ skills }: { skills: Skill[] }) {
     <div className="space-y-6">
       {Object.entries(groupedSkills).map(([category, categorySkills]) => (
         <div key={category} className="space-y-4">
-          <h3 className="text-lg font-medium capitalize">{category}</h3>
-          <div className="flex flex-wrap gap-2">
-            {categorySkills.map((skill) => (
-              <Badge key={skill.id} variant="secondary" className="rounded-md">
-                {skill.skill}
-                <span className="ml-1 text-xs text-muted-foreground">
-                  Lv.{skill.level}
-                </span>
-              </Badge>
-            ))}
+          <h3 className="text-lg font-medium capitalize">
+            {category.replace(/-/g, " ")}
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {categorySkills.map((skill) => {
+              const formattedSkill = skill.skill.replace(/-/g, " ");
+              return (
+                <div key={skill.id} className="flex-1">
+                  <Badge
+                    variant="outline"
+                    className="w-full rounded-md flex items-center justify-between p-2"
+                  >
+                    <span className="truncate">{formattedSkill}</span>
+                    <span className="flex gap-1 flex-shrink-0 ml-2">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <Hexagon
+                          key={index}
+                          className={`h-3 w-3 ${
+                            index < skill.level
+                              ? "text-blue-400 fill-blue-400"
+                              : "text-gray-300"
+                          }`}
+                        />
+                      ))}
+                    </span>
+                  </Badge>
+                </div>
+              );
+            })}
           </div>
         </div>
       ))}

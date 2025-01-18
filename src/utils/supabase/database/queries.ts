@@ -6,9 +6,6 @@ export async function getUserQuery(supabase: Client, userId: string) {
     where: {
       id: userId,
     },
-    include: {
-      health_profile: true,
-    },
   });
 }
 

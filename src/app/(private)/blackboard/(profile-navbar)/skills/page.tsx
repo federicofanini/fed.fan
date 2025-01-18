@@ -147,18 +147,18 @@ export default function SkillsPage() {
           <div>
             <Card>
               <CardHeader>
-                <CardTitle>add new skill</CardTitle>
+                <CardTitle>Add new skill</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <Label htmlFor="category">category</Label>
+                    <Label htmlFor="category">Category</Label>
                     <Select
                       value={selectedSkillCategory}
                       onValueChange={handleCategoryChange}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="select a category" />
+                        <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
                       <SelectContent>
                         {skillsMap.categories.map((category) => (
@@ -171,14 +171,14 @@ export default function SkillsPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="skill">skill</Label>
+                    <Label htmlFor="skill">Skill</Label>
                     <Select
                       value={newSkill.skill_id}
                       onValueChange={handleSkillChange}
                       disabled={!selectedSkillCategory}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="select a skill" />
+                        <SelectValue placeholder="Select a skill" />
                       </SelectTrigger>
                       <SelectContent>
                         {selectedSkillCategory &&
@@ -194,7 +194,7 @@ export default function SkillsPage() {
                   </div>
 
                   <div>
-                    <Label>proficiency level</Label>
+                    <Label>Level</Label>
                     <ToggleGroup
                       type="single"
                       value={newSkill.level?.toString()}
@@ -231,7 +231,7 @@ export default function SkillsPage() {
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <CardTitle>your skills</CardTitle>
+                  <CardTitle>Your skills</CardTitle>
                   <Select
                     value={selectedCategory || "all"}
                     onValueChange={(value) =>
