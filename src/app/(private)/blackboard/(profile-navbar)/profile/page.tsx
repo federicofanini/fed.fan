@@ -101,7 +101,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <Card>
+    <Card className="border-none">
       <CardHeader>
         <CardTitle>Profile Settings</CardTitle>
       </CardHeader>
