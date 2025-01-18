@@ -76,7 +76,7 @@ export default async function Page() {
       <header className="w-full fixed left-0 right-0">
         <div className="ml-5 mt-4 md:ml-10 md:mt-10">
           <Link href="/">
-            <Image src="/logo.svg" alt="GymBrah" width={100} height={100} />
+            <span className="text-2xl font-bold font-mono">fed.fan</span>
           </Link>
         </div>
       </header>
@@ -85,14 +85,18 @@ export default async function Page() {
         <div className="relative z-20 m-auto flex w-full max-w-[380px] flex-col py-8">
           <div className="flex w-full flex-col relative">
             <div className="pb-4 bg-gradient-to-r from-primary dark:via-primary dark:to-muted-foreground to-[#000] inline-block text-transparent bg-clip-text">
-              <h1 className="font-medium pb-1 text-3xl">Login to GymBrah.</h1>
+              <h1 className="font-medium pb-1 text-3xl">Login to fed.fan</h1>
             </div>
 
-            <p className="font-medium pb-1 text-2xl text-muted-foreground">
-              Every achievement counts. <br />
-              Track your fitness journey, <br />
-              keep yourself accountable, <br />
-              and stay motivated every step of the way.
+            <p className="text-sm text-muted-foreground">
+              Why &quot;fed.fan&quot;? <br />
+              <br />
+              The name represents{" "}
+              <span className="font-bold">
+                founders, entrepreneurs and developers
+              </span>{" "}
+              who drive innovation, while celebrating the community of
+              supporters and collaborators that make success possible.
             </p>
 
             <div className="pointer-events-auto mt-6 flex flex-col mb-6">
@@ -118,14 +122,14 @@ export default async function Page() {
 
             <p className="text-xs text-muted-foreground">
               By clicking continue, you acknowledge that you have read and agree
-              to GymBrah&apos;s{" "}
-              <a href="/terms" className="underline">
+              to fed.fan&apos;s{" "}
+              <Link href="/terms" className="underline">
                 Terms of Service
-              </a>{" "}
+              </Link>{" "}
               and{" "}
-              <a href="/privacy" className="underline">
+              <Link href="/privacy" className="underline">
                 Privacy Policy
-              </a>
+              </Link>
               .
             </p>
           </div>
