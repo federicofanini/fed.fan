@@ -89,15 +89,16 @@ model projects {
 }
 
 model education {
-  id         String   @id @default(uuid())
-  user_id    String
-  user       user     @relation(fields: [user_id], references: [id])
-  school     String
-  degree     String
-  start_date DateTime
-  end_date   DateTime
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id             String   @id @default(uuid())
+  user_id        String
+  user           user     @relation(fields: [user_id], references: [id])
+  school         String
+  degree         String
+  field_of_study String
+  start_date     DateTime
+  end_date       DateTime
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 }
 
 model hobbies {
