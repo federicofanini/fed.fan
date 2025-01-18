@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,7 +11,10 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { getUserCount } from "@/actions/user-count";
-import { PayToShareClient } from "./payToShareClient";
+import { Copy, Loader } from "lucide-react";
+import { useState } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { toast } from "sonner";
 
 const prices = [
   {
@@ -39,6 +44,85 @@ const Badge = ({ type }: { type: "personal" | "business" }) => (
     {type === "personal" ? "Personal" : "Business"}
   </span>
 );
+
+function PaymentButton({ productId }: { productId: string }) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handlePayment = async () => {
+    setIsLoading(true);
+    try {
+      const supabase = createClient();
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError || !user) {
+        window.location.href = "/login";
+        return;
+      }
+
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          priceId: productId,
+          userId: user.id,
+        }),
+      });
+
+      const { url } = await response.json();
+      window.location.href = url;
+    } catch (error) {
+      console.error("Payment error:", error);
+      toast.error("Failed to initiate payment. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <Button onClick={handlePayment} className="w-full" disabled={isLoading}>
+      {isLoading ? (
+        <>
+          <Loader className="mr-2 h-4 w-4 animate-spin" />
+          Processing...
+        </>
+      ) : (
+        "Get Started"
+      )}
+    </Button>
+  );
+}
+
+function CopyButton() {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText("FREE");
+      setIsCopied(true);
+      toast.success("Copied to clipboard!");
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      toast.error("Failed to copy code");
+    }
+  };
+
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      className="w-full font-mono"
+      onClick={copyToClipboard}
+    >
+      Copy discount code: FREE
+      <Copy className="ml-2 h-4 w-4" />
+    </Button>
+  );
+}
 
 export async function PayToShare() {
   const response = await getUserCount();
@@ -78,7 +162,7 @@ export async function PayToShare() {
             </div>
           </CardHeader>
           <CardContent className="pt-0">
-            <PayToShareClient productId={price.id} />
+            <PaymentButton productId={price.id} />
           </CardContent>
           <CardFooter>
             <div className="w-full p-4 rounded-lg border-2 border-dashed border-primary/60 bg-primary/5">
@@ -103,7 +187,7 @@ export async function PayToShare() {
                 </div>
 
                 <div className="relative">
-                  <PayToShareClient.CopyButton />
+                  <CopyButton />
                 </div>
               </div>
             </div>
