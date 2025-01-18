@@ -19,16 +19,10 @@ export function Header() {
           title="brand-logo"
           className="relative flex items-center space-x-2"
         >
-          <Image
-            src="/logo.svg"
-            alt="GymBrah"
-            width={50}
-            height={50}
-            className="h-[40px] w-auto"
-          />
+          <span className="text-2xl font-bold font-mono">fed.fan</span>
         </Link>
         <div className="flex items-center gap-6">
-          <Link
+          {/* <Link
             href="/leaderboard"
             className={`text-sm hidden lg:block hover:text-primary font-mono transition-colors ${
               pathname === "/leaderboard" ? "underline underline-offset-8" : ""
@@ -49,7 +43,7 @@ export function Header() {
               <Dock className="size-4" />
               Mobile app
             </span>
-          </Link>
+          </Link>*/}
           <div className="hidden lg:block">
             <Link href="/login" className="text-xs text-secondary underline">
               <OutlinedButton className="text-xs h-6">

@@ -19,7 +19,7 @@ export const BLUR_FADE_DELAY = 0.15;
 export const siteConfig = {
   name: "fed.fan",
   description:
-    "redefines personal branding. It’s where the builders of tomorrow turn connections into collaborations. This isn’t just another profile—it’s your story, and the world is watching.",
+    "Redefines personal branding. It’s where the builders of tomorrow turn connections into collaborations. This isn’t just another profile—it’s your story, and the world is watching.",
   cta: "Start now",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   keywords: [

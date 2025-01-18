@@ -28,20 +28,14 @@ export function MobileDrawer() {
             title="brand-logo"
             className="flex items-center justify-center"
           >
-            <Image
-              src="/logo.svg"
-              alt="brand-logo"
-              width={100}
-              height={100}
-              className="w-auto h-[40px]"
-            />
+            <span className="text-2xl font-bold font-mono">fed.fan</span>
           </Link>
           <DrawerDescription className="text-center">
-            {siteConfig.description}
+            {siteConfig.hero.description}
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter className="flex flex-col gap-4 items-center">
-          <Link
+          {/*<Link
             href="/leaderboard"
             className="text-sm hover:text-primary font-mono mb-8 transition-colors flex items-center gap-2"
           >
@@ -54,7 +48,7 @@ export function MobileDrawer() {
           >
             <Dock className="size-4" />
             Mobile app
-          </Link>
+          </Link>*/}
           <Link
             href="/login"
             className="text-sm text-secondary underline mx-auto"
