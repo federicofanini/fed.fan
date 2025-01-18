@@ -132,7 +132,7 @@ async function Avatars() {
       <AvatarCircles numPeople={count} avatarUrls={avatarUrls} />
       <p className="mt-4 text-xs text-muted-foreground text-center font-mono">
         <span className="font-semibold text-primary">Free </span> for the first{" "}
-        <span className="font-semibold text-primary">{100 - count}</span>{" "}
+        <span className="font-semibold text-primary">{50 - count}</span>{" "}
         founders.
       </p>
     </div>

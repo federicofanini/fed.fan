@@ -20,29 +20,29 @@ export function OldNew() {
             <li className="flex items-start gap-3">
               <AlertOctagon className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
               <span className="leading-relaxed">
-                Forget to track your progress, relying on{" "}
-                <span className="font-semibold text-primary">memory</span> and
-                losing sight of your achievements.
+                <span className="font-semibold text-primary">
+                  Traditional resumes and profiles
+                </span>{" "}
+                fail to capture the essence of who you are.
               </span>
             </li>
             <li className="flex items-start gap-3">
               <Clock className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
               <span className="leading-relaxed">
-                Struggle with{" "}
                 <span className="font-semibold text-primary">
-                  inconsistent routines
-                </span>
-                , making it hard to build lasting fitness habits.
+                  Networking platforms
+                </span>{" "}
+                are siloed, making it hard to build genuine relationships.
               </span>
             </li>
             <li className="flex items-start gap-3">
               <Lock className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
               <span className="leading-relaxed">
-                Lack motivation and accountability, leading to{" "}
                 <span className="font-semibold text-primary">
-                  abandoned goals
-                </span>
-                .
+                  Real-time feedback
+                </span>{" "}
+                and connection, leading to missed opportunities and stalled
+                growth.
               </span>
             </li>
           </ul>
@@ -57,31 +57,29 @@ export function OldNew() {
             <li className="flex items-start gap-3">
               <CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
               <span className="leading-relaxed">
-                Track your workouts with{" "}
                 <span className="font-semibold text-primary">
-                  intelligent logs
+                  Showcase your journey
                 </span>{" "}
-                that show your progress over time.
+                and achievements in a way that truly reflects who you are.
               </span>
             </li>
             <li className="flex items-start gap-3">
               <CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
               <span className="leading-relaxed">
-                Build{" "}
                 <span className="font-semibold text-primary">
-                  personalized routines
+                  Engage directly
                 </span>{" "}
-                that fit your lifestyle and keep you consistent.
+                with fellow creators, founders, and like-minded individuals.
               </span>
             </li>
             <li className="flex items-start gap-3">
               <TrendingUp className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
               <span className="leading-relaxed">
-                Stay accountable with{" "}
                 <span className="font-semibold text-primary">
-                  AI-powered coaching
-                </span>
-                , keeping you motivated and on track.
+                  Stay on track
+                </span>{" "}
+                with instant feedback and insights, ensuring you’re always
+                moving forward.
               </span>
             </li>
           </ul>

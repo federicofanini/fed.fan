@@ -8,9 +8,10 @@ import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import OutlinedButton from "../ui/outlined-button";
 import Link from "next/link";
+import { getUserCount } from "@/actions/user-count";
 
 interface TabsProps {
   activeTab: string;
@@ -172,10 +173,21 @@ export function Pricing() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
     "yearly"
   );
+  const [count, setCount] = useState<number>(0);
 
   const handleTabChange = (tab: "yearly" | "monthly") => {
     setBillingCycle(tab);
   };
+
+  useEffect(() => {
+    async function fetchCount() {
+      const response = await getUserCount();
+      if (response?.data?.data) {
+        setCount(response.data.data);
+      }
+    }
+    fetchCount();
+  }, []);
 
   return (
     <Section id="pricing" title="Pricing">
@@ -192,13 +204,15 @@ export function Pricing() {
               <span className="font-semibold text-primary space-y-8">
                 lifetime access for{" "}
                 <Badge className="bg-primary text-lg text-primary-foreground">
-                  $49
+                  $29
                 </Badge>
               </span>
               <br />
               <br />
-              <span className="font-semibold text-primary">Free </span>during
-              beta.
+              <span className="font-semibold text-primary">Free </span>for the
+              first{" "}
+              <span className="font-semibold text-primary">{50 - count}</span>{" "}
+              founders.
             </p>
           </div>
           <div className="flex items-center justify-center">
