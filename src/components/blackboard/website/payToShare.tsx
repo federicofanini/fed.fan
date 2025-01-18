@@ -10,11 +10,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { getUserCount } from "@/actions/user-count";
 import { Copy, Loader } from "lucide-react";
-import { useState } from "react";
-import { createClient } from "@/utils/supabase/client";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 import { toast } from "sonner";
+import { getUserCount } from "@/actions/user-count";
 
 const prices = [
   {
@@ -25,6 +26,7 @@ const prices = [
     name: "Publish your profile",
     description:
       "Share your profile and reserve your profile URL - fed.fan/username",
+
     yearlyPrice: 2900,
     anchorPrice: 5900,
     isMostPopular: true,
@@ -45,88 +47,58 @@ const Badge = ({ type }: { type: "personal" | "business" }) => (
   </span>
 );
 
-function PaymentButton({ productId }: { productId: string }) {
+export function PayToShare() {
   const [isLoading, setIsLoading] = useState(false);
+  const [userCount, setUserCount] = useState(0);
+  const router = useRouter();
 
-  const handlePayment = async () => {
+  useEffect(() => {
+    async function fetchUserCount() {
+      const response = await getUserCount();
+      if (response?.data?.success) {
+        setUserCount(response.data.data);
+      }
+    }
+    fetchUserCount();
+  }, []);
+
+  const onSubscribeClick = async (productId: string) => {
     setIsLoading(true);
     try {
-      const supabase = createClient();
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
+      const { data } = await axios.post(
+        "/api/creem/checkout",
+        { productId },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
 
-      if (userError || !user) {
-        window.location.href = "/login";
-        return;
+      if (data.success) {
+        router.push(data.checkout.checkout_url);
+      } else {
+        toast.error("Failed to create checkout session");
       }
-
-      const response = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          priceId: productId,
-          userId: user.id,
-        }),
-      });
-
-      const { url } = await response.json();
-      window.location.href = url;
     } catch (error) {
-      console.error("Payment error:", error);
-      toast.error("Failed to initiate payment. Please try again.");
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          toast.error("Please sign in to continue");
+          router.push("/login");
+        } else {
+          toast.error(
+            error.response?.data?.message || "Error creating checkout session"
+          );
+        }
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+      console.error("Error creating checkout session:", error);
     } finally {
       setIsLoading(false);
     }
   };
-
-  return (
-    <Button onClick={handlePayment} className="w-full" disabled={isLoading}>
-      {isLoading ? (
-        <>
-          <Loader className="mr-2 h-4 w-4 animate-spin" />
-          Processing...
-        </>
-      ) : (
-        "Get Started"
-      )}
-    </Button>
-  );
-}
-
-function CopyButton() {
-  const [isCopied, setIsCopied] = useState(false);
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText("FREE");
-      setIsCopied(true);
-      toast.success("Copied to clipboard!");
-      setTimeout(() => setIsCopied(false), 2000);
-    } catch (err) {
-      toast.error("Failed to copy code");
-    }
-  };
-
-  return (
-    <Button
-      variant="outline"
-      size="sm"
-      className="w-full font-mono"
-      onClick={copyToClipboard}
-    >
-      Copy discount code: FREE
-      <Copy className="ml-2 h-4 w-4" />
-    </Button>
-  );
-}
-
-export async function PayToShare() {
-  const response = await getUserCount();
-  const userCount = response?.data?.data || 0;
 
   return (
     <div className="mt-4 space-y-3">
@@ -162,7 +134,20 @@ export async function PayToShare() {
             </div>
           </CardHeader>
           <CardContent className="pt-0">
-            <PaymentButton productId={price.id} />
+            <Button
+              className="w-full font-medium"
+              disabled={isLoading}
+              onClick={() => onSubscribeClick(price.id)}
+            >
+              {isLoading ? (
+                <>
+                  <Loader className="mr-2 h-3.5 w-3.5 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                "Get your username"
+              )}
+            </Button>
           </CardContent>
           <CardFooter>
             <div className="w-full p-4 rounded-lg border-2 border-dashed border-primary/60 bg-primary/5">
@@ -187,7 +172,23 @@ export async function PayToShare() {
                 </div>
 
                 <div className="relative">
-                  <CopyButton />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full text-sm font-medium bg-background hover:bg-primary/10 border-primary/30 hover:border-primary transition-colors flex items-center justify-center gap-2"
+                    onClick={() => {
+                      navigator.clipboard.writeText("FREE");
+                      toast.success(
+                        "Copied discount code - use 'FREE' at checkout for 100% off!"
+                      );
+                    }}
+                  >
+                    <span>Click to copy discount code:</span>
+                    <code className="font-mono font-bold text-primary">
+                      FREE
+                    </code>
+                    <Copy className="h-4 w-4 text-primary/70" />
+                  </Button>
                 </div>
               </div>
             </div>
