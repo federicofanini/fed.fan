@@ -2,10 +2,19 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { prisma } from "@/lib/db";
 
+interface SearchParams {
+  request_id?: string;
+  checkout_id?: string;
+  customer_id?: string;
+  order_id?: string;
+  product_id?: string;
+  signature?: string;
+}
+
 export default async function SuccessPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<SearchParams>;
 }) {
   const supabase = await createClient();
 
@@ -18,21 +27,16 @@ export default async function SuccessPage({
     redirect("/login");
   }
 
-  const requestId = searchParams.request_id as string;
-  const checkoutId = searchParams.checkout_id as string;
-  const customerId = searchParams.customer_id as string;
-  const orderId = searchParams.order_id as string;
-  const productId = searchParams.product_id as string;
-  const signature = searchParams.signature as string;
+  const { request_id, customer_id, product_id } = await searchParams;
 
-  if (requestId === "PAID") {
+  if (request_id === "PAID") {
     try {
       await prisma.user.update({
         where: { id: user.id },
         data: {
           paid: true,
-          customer_id: customerId,
-          plan_id: productId,
+          customer_id,
+          plan_id: product_id,
         },
       });
       console.log("User updated successfully");

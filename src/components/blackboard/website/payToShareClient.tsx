@@ -67,7 +67,7 @@ PayToShareClient.CopyButton = function CopyButton() {
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText("EARLY25");
+      await navigator.clipboard.writeText("FREE");
       setIsCopied(true);
       toast.success("Copied to clipboard!");
       setTimeout(() => setIsCopied(false), 2000);
@@ -83,7 +83,7 @@ PayToShareClient.CopyButton = function CopyButton() {
       className="w-full font-mono"
       onClick={copyToClipboard}
     >
-      EARLY25
+      Copy discount code: FREE
       <Copy className="ml-2 h-4 w-4" />
     </Button>
   );
