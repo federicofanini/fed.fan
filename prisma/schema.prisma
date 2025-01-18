@@ -32,14 +32,9 @@ model user {
   customer_id String?
   plan_id     String?
 
-  created_at        DateTime           @default(now())
-  updated_at        DateTime           @updatedAt
-  health_profile    health_profile?
-  workouts          workout[]
-  feedback          feedback[]
-  gamification      gamification?
-  workout_frequency workout_frequency?
-  completed_sets    completed_set[]
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  feedback   feedback[]
 }
 
 model waitlist {
@@ -61,115 +56,5 @@ model feedback {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  @@index([user_id])
-}
-
-model health_profile {
-  id           String   @id @default(uuid())
-  user_id      String   @unique
-  user         user     @relation(fields: [user_id], references: [id])
-  height       Float? // in cm
-  weight       Float? // in kg
-  sleep_hours  String? // less-6, 6-7, 7-8, more-8
-  alcohol      String? // none, 1-3, 4-7, more
-  sugar_intake String? // low, moderate, high
-  is_smoker    Boolean? // true = smoker, false = non-smoker
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
-}
-
-model workout_exercise {
-  id             String          @id @default(uuid())
-  exercise_id    String
-  exercise       exercises       @relation(fields: [exercise_id], references: [id])
-  reps           Int?
-  sets           Int?
-  weight         Float?
-  duration       Int?
-  round          String?
-  workout_id     String
-  workout        workout         @relation(fields: [workout_id], references: [id])
-  created_at     DateTime        @default(now())
-  updated_at     DateTime        @updatedAt
-  completed_sets completed_set[]
-
-  @@index([exercise_id])
-  @@index([workout_id])
-}
-
-model workout {
-  id         String             @id @default(uuid())
-  name       String
-  user_id    String
-  user       user               @relation(fields: [user_id], references: [id])
-  selected   Boolean            @default(false)
-  exercises  workout_exercise[]
-  frequency  String? // Days of the week [1,2,3,4,5,6,7]
-  created_at DateTime           @default(now())
-  updated_at DateTime           @updatedAt
-
-  @@index([user_id])
-}
-
-model exercises {
-  id                String   @id @unique
-  name              String?
-  body_part         String?
-  equipment         String?
-  gif_url           String?
-  target            String?
-  secondary_muscles String[]
-  instructions      String[]
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
-
-  workout_exercise workout_exercise[]
-
-  @@index([body_part])
-  @@index([target])
-  @@index([equipment])
-}
-
-model gamification {
-  id                 String    @id @default(uuid())
-  user_id            String    @unique
-  user               user      @relation(fields: [user_id], references: [id])
-  points             Int       @default(0)
-  level              Int       @default(1)
-  streak_days        Int       @default(0)
-  longest_streak     Int       @default(0)
-  workouts_completed Int       @default(0)
-  achievements       String[]  @default([])
-  badges             String[]  @default([])
-  last_workout_date  DateTime?
-  created_at         DateTime  @default(now())
-  updated_at         DateTime  @updatedAt
-
-  @@index([user_id])
-}
-
-model workout_frequency {
-  id         String   @id @default(uuid())
-  user_id    String   @unique
-  user       user     @relation(fields: [user_id], references: [id])
-  frequency  String? // Days of the week [1,2,3,4,5,6,7]
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@index([user_id])
-}
-
-model completed_set {
-  id                  String           @id @default(uuid())
-  workout_exercise_id String
-  workout_exercise    workout_exercise @relation(fields: [workout_exercise_id], references: [id])
-  user_id             String
-  user                user             @relation(fields: [user_id], references: [id])
-  completed_reps      Int
-  set_number          Int
-  created_at          DateTime         @default(now())
-  updated_at          DateTime         @updatedAt
-
-  @@index([workout_exercise_id])
   @@index([user_id])
 }

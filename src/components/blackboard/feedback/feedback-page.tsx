@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getCachedFeedbacks } from "@/actions/feedback/cached-feedback";
 import { AddFeedback } from "./add-fedback";
 import { VoteButton } from "./vote-button";
-import { HardUpdate } from "../refresh-button";
+import { RefreshButton } from "./refresh-button";
 import { revalidateFeedbackCache } from "@/actions/feedback/feedback";
 
 interface Feedback {
@@ -46,7 +46,7 @@ export default async function FeedbackPage() {
         <h1 className="text-2xl sm:text-3xl font-bold">Feedback</h1>
         <div className="flex items-center gap-2">
           <AddFeedback />
-          <HardUpdate action={revalidateFeedbackCache} />
+          <RefreshButton action={revalidateFeedbackCache} />
         </div>
       </div>
 
