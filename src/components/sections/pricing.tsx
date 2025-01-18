@@ -211,7 +211,7 @@ export function Pricing() {
               <br />
               <span className="font-semibold text-primary">Free </span>for the
               first{" "}
-              <span className="font-semibold text-primary">{50 - count}</span>{" "}
+              <span className="font-semibold text-primary">{25 - count}</span>{" "}
               founders.
             </p>
           </div>

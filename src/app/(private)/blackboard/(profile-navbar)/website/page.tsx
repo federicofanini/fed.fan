@@ -11,15 +11,18 @@ import { toast } from "sonner";
 import { FounderPage, Founder } from "@/components/website/founder-page";
 import { getFounderProfile } from "@/actions/username/getFounderProfile";
 import { PayToShare } from "@/components/blackboard/website/payToShare";
+import { checkPaidStatusAction } from "@/actions/username/paid";
 
 export default function WebsitePage() {
   const [username, setUsername] = useState("");
   const [storedUsername, setStoredUsername] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [founderData, setFounderData] = useState<Founder | null>(null);
+  const [isPaid, setIsPaid] = useState(false);
 
   useEffect(() => {
     fetchUsername();
+    checkPaidStatus();
   }, []);
 
   useEffect(() => {
@@ -27,6 +30,13 @@ export default function WebsitePage() {
       fetchFounderData();
     }
   }, [storedUsername]);
+
+  async function checkPaidStatus() {
+    const result = await checkPaidStatusAction({});
+    if (result?.data?.success) {
+      setIsPaid(result.data.data.paid);
+    }
+  }
 
   async function fetchUsername() {
     const result = await fetchUsernameAction({});
@@ -129,10 +139,10 @@ export default function WebsitePage() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder={storedUsername || "Enter your username"}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !isPaid}
                   />
                 </div>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" disabled={isSubmitting || !isPaid}>
                   {isSubmitting ? "Updating..." : "Update Username"}
                 </Button>
               </form>
