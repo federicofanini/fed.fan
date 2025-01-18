@@ -9,7 +9,7 @@ export function Footer() {
     <footer className="flex flex-col gap-y-5 rounded-lg px-7 py-5 container">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-x-2">
-          <Image src="/logo.svg" alt="GymBrah" width={100} height={100} />
+          <Image src="/logo.svg" alt="fed.fan" width={100} height={100} />
         </div>
 
         <div className="flex gap-x-2">

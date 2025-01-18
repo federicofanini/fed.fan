@@ -11,14 +11,14 @@ export function Terms() {
 
       <div className="h-full max-w-[800px] m-auto mt-10">
         <p className="mb-10 text-muted-foreground">
-          Welcome to GymBrah. These Terms of Service (&quot;Terms&quot;) govern
-          your use of our website and services. By accessing or using GymBrah,
+          Welcome to fed.fan. These Terms of Service (&quot;Terms&quot;) govern
+          your use of our website and services. By accessing or using fed.fan,
           you agree to comply with and be bound by these Terms.
         </p>
 
         <h2 className="text-2xl mb-4">1. Acceptance of Terms</h2>
         <p className="mb-6 text-muted-foreground">
-          By accessing or using the services provided by GymBrah, you agree to
+          By accessing or using the services provided by fed.fan, you agree to
           these Terms. If you do not agree with these Terms, you may not access
           or use the services.
         </p>
@@ -26,12 +26,12 @@ export function Terms() {
         <h2 className="text-2xl mb-4">2. Use of the Service</h2>
         <p className="mb-4 text-muted-foreground">
           You are granted a non-exclusive, non-transferable license to access
-          and use GymBrah for lawful purposes. You agree to use the service in
+          and use fed.fan for lawful purposes. You agree to use the service in
           accordance with all applicable laws and regulations.
         </p>
         <ul className="list-disc pl-6 mb-8 text-muted-foreground">
           <li>
-            You may not use GymBrah for any unlawful activities or any activity
+            You may not use fed.fan for any unlawful activities or any activity
             that could harm, disable, or impair the platform.
           </li>
           <li>
@@ -42,36 +42,36 @@ export function Terms() {
 
         <h2 className="text-2xl mb-4">3. User Accounts</h2>
         <p className="mb-6 text-muted-foreground">
-          To access certain features of GymBrah, you may need to create an
+          To access certain features of fed.fan, you may need to create an
           account. You agree to provide accurate and up-to-date information when
           creating an account and to keep your account information confidential.
         </p>
 
         <h2 className="text-2xl mb-4">4. Payment Terms</h2>
         <p className="mb-6 text-muted-foreground">
-          Some services on GymBrah may require payment. If you choose to
+          Some services on fed.fan may require payment. If you choose to
           purchase services, you agree to provide valid payment information and
           pay all applicable fees as outlined in the service agreement.
         </p>
 
         <h2 className="text-2xl mb-4">5. Intellectual Property</h2>
         <p className="mb-6 text-muted-foreground">
-          All content on GymBrah, including text, images, logos, and designs, is
-          the intellectual property of GymBrah or its licensors. You may not
+          All content on fed.fan, including text, images, logos, and designs, is
+          the intellectual property of fed.fan or its licensors. You may not
           use, copy, or distribute any content without the express permission of
-          GymBrah.
+          fed.fan.
         </p>
 
         <h2 className="text-2xl mb-4">6. Termination</h2>
         <p className="mb-6 text-muted-foreground">
-          We reserve the right to suspend or terminate your access to GymBrah at
+          We reserve the right to suspend or terminate your access to fed.fan at
           any time, for any reason, including if you violate these Terms of
           Service.
         </p>
 
         <h2 className="text-2xl mb-4">7. Privacy</h2>
         <p className="mb-6 text-muted-foreground">
-          Your use of GymBrah is also governed by our Privacy Policy, which
+          Your use of fed.fan is also governed by our Privacy Policy, which
           explains how we collect, use, and protect your personal data. Please
           review our Privacy Policy to understand how we handle your
           information.
@@ -81,7 +81,7 @@ export function Terms() {
           8. Disclaimers and Limitation of Liability
         </h2>
         <p className="mb-6 text-muted-foreground">
-          GymBrah provides the services &quot;as is&quot; and makes no
+          fed.fan provides the services &quot;as is&quot; and makes no
           warranties or representations regarding the platform&apos;s
           availability, reliability, or accuracy. We are not responsible for any
           damages or losses resulting from your use of the services.
@@ -115,9 +115,9 @@ export function Terms() {
           If you have any questions or concerns regarding these Terms of
           Service, please contact us at:
         </p>
-        <p className="text-muted-foreground">Email: fedef@gymbrah.com</p>
+        <p className="text-muted-foreground">Email: f@fanini.eu</p>
         <p className="text-muted-foreground my-10">
-          By using GymBrah, you acknowledge and agree to these Terms of Service.
+          By using fed.fan, you acknowledge and agree to these Terms of Service.
           Thank you for using our platform!
         </p>
       </div>

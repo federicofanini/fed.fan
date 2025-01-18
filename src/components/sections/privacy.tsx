@@ -11,10 +11,10 @@ export function Privacy() {
 
       <div className="h-full max-w-[800px] m-auto mt-10">
         <p className="mb-10 text-muted-foreground">
-          At GymBrah, we value your privacy and are committed to protecting your
+          At fed.fan, we value your privacy and are committed to protecting your
           personal information. This Privacy Policy outlines how we collect,
           use, store, and protect your data when you access or use our website,
-          products, and services. By using GymBrah, you agree to the collection
+          products, and services. By using fed.fan, you agree to the collection
           and use of information in accordance with this Privacy Policy.
         </p>
 
@@ -41,7 +41,7 @@ export function Privacy() {
           <li>
             Log Data: We automatically collect information such as your
             device&apos;s internet protocol (IP) address, browser type,
-            operating system, pages visited on GymBrah, and other usage details.
+            operating system, pages visited on fed.fan, and other usage details.
           </li>
           <li>
             Cookies and Tracking Technologies: We use cookies, web beacons, and
@@ -58,7 +58,7 @@ export function Privacy() {
         <ul className="list-disc pl-6 mb-8 text-muted-foreground">
           <li>
             To Provide and Improve Our Services: To offer, maintain, and improve
-            the features and functionality of GymBrah.
+            the features and functionality of fed.fan.
           </li>
           <li>
             Personalization: To personalize content, recommendations, and
@@ -66,10 +66,10 @@ export function Privacy() {
           </li>
           <li>
             Communication: To send you important updates about your account, new
-            features, and other relevant information regarding GymBrah.
+            features, and other relevant information regarding fed.fan.
           </li>
           <li>
-            Analytics and Research: To monitor the usage of GymBrah and gather
+            Analytics and Research: To monitor the usage of fed.fan and gather
             data to enhance our platform.
           </li>
           <li>
@@ -98,7 +98,7 @@ export function Privacy() {
             authorities (e.g., a court order or government agency).
           </li>
           <li>
-            Business Transfers: If GymBrah is involved in a merger, acquisition,
+            Business Transfers: If fed.fan is involved in a merger, acquisition,
             or sale of assets, your personal data may be transferred as part of
             that transaction.
           </li>
@@ -142,13 +142,13 @@ export function Privacy() {
           </li>
         </ul>
         <p className="mb-8 text-muted-foreground">
-          To exercise these rights, please contact us at fedef@gymbrah.com.
+          To exercise these rights, please contact us at f@fanini.eu.
         </p>
 
         <h2 className="text-2xl mb-4">6. Third-Party Links</h2>
         <p className="mb-8 text-muted-foreground">
           Our website may contain links to third-party websites or services that
-          are not owned or controlled by GymBrah. We are not responsible for the
+          are not owned or controlled by fed.fan. We are not responsible for the
           privacy practices of these external sites. We encourage you to review
           the privacy policies of any third-party websites you visit.
         </p>
@@ -159,12 +159,12 @@ export function Privacy() {
           experience, analyze usage, and improve our services. Cookies are small
           files stored on your device. You can manage your cookie preferences
           through your browser settings, but please note that disabling cookies
-          may affect the functionality of certain features on GymBrah.
+          may affect the functionality of certain features on fed.fan.
         </p>
 
         <h2 className="text-2xl mb-4">8. Children&apos;s Privacy</h2>
         <p className="mb-8 text-muted-foreground">
-          GymBrah is not intended for use by individuals under the age of 16. We
+          fed.fan is not intended for use by individuals under the age of 16. We
           do not knowingly collect or solicit personal information from anyone
           under the age of 16. If we become aware that we have collected
           personal data from a child under 16, we will take steps to delete that
@@ -184,9 +184,9 @@ export function Privacy() {
           If you have any questions or concerns about this Privacy Policy or how
           we handle your personal data, please contact us at:
         </p>
-        <p className="text-muted-foreground">Email: fedef@gymbrah.com</p>
+        <p className="text-muted-foreground">Email: f@fanini.eu</p>
         <p className="text-muted-foreground my-10">
-          By using GymBrah, you acknowledge and agree to the terms outlined in
+          By using fed.fan, you acknowledge and agree to the terms outlined in
           this Privacy Policy. Thank you for trusting us with your data!
         </p>
       </div>

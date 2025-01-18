@@ -187,15 +187,7 @@ export const siteConfig = {
     socialLinks: [
       {
         icon: <Icons.twitter className="size-4" />,
-        url: "https://x.com/GymBrah_com",
-      },
-      {
-        icon: <Icons.bsky className="h-5 w-5" />,
-        url: "https://bsky.app/profile/gymbrah.com",
-      },
-      {
-        icon: <Icons.discord className="h-5 w-5" />,
-        url: "https://discord.gg/f7fSp6vQcK",
+        url: "https://x.com/FedericoFan",
       },
     ],
     links: [
@@ -203,7 +195,7 @@ export const siteConfig = {
       { text: "Privacy", url: "/privacy" },
     ],
     bottomText: "All rights reserved.",
-    brandText: "GYMBRAH",
+    brandText: "fed.fan",
   },
 
   testimonials: [

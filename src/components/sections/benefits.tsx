@@ -6,56 +6,54 @@ export function Benefits() {
     <Section id="benefits" title="Why founders choose us?">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 border-x border-t">
         <div className="flex flex-col p-4 border-b md:border-r bg-muted/10 hover:bg-muted/40 transition-colors">
-          <h3 className="text-lg font-medium mb-1 flex items-center gap-2 mb-4">
+          <h3 className="text-lg font-medium flex items-center gap-2 mb-4">
             <HeartPulse className="size-6 text-primary" />
-            Track Progress
+            Growth
           </h3>
           <p className="text-sm text-muted-foreground">
-            Monitor your{" "}
-            <span className="font-semibold text-primary">workouts</span> and{" "}
-            <span className="font-semibold text-primary">achievements</span>{" "}
-            with intelligent progress tracking.
+            Focus on{" "}
+            <span className="font-semibold text-primary">
+              personal branding progress
+            </span>
+            , not just fitness.
           </p>
         </div>
 
         <div className="flex flex-col p-4 border-b md:border-r border-l bg-muted/10 hover:bg-muted/40 transition-colors">
-          <h3 className="text-lg font-medium mb-1 flex items-center gap-2 mb-4">
+          <h3 className="text-lg font-medium flex items-center gap-2 mb-4">
             <TrendingUp className="size-6 text-primary" />
-            Build Habits
+            Networking
           </h3>
           <p className="text-sm text-muted-foreground">
-            Create{" "}
             <span className="font-semibold text-primary">
-              personalized routines
+              Build a community
             </span>{" "}
-            that fit your lifestyle and build
-            <span className="font-semibold text-primary"> lasting habits</span>.
+            and connecting with others.
           </p>
         </div>
 
         <div className="flex flex-col p-4 border-b md:border-r border-l bg-muted/10 hover:bg-muted/40 transition-colors">
-          <h3 className="text-lg font-medium mb-1 flex items-center gap-2 mb-4">
+          <h3 className="text-lg font-medium flex items-center gap-2 mb-4">
             <CheckCircle className="size-6 text-primary" />
-            Stay Accountable
+            Let&apos;s connect
           </h3>
           <p className="text-sm text-muted-foreground">
-            Get{" "}
+            Connect with{" "}
             <span className="font-semibold text-primary">
-              AI-powered coaching
-            </span>{" "}
-            and reminders to stay on track with your
-            <span className="font-semibold text-primary"> goals</span>.
+              like-minded founders
+            </span>
+            .
           </p>
         </div>
 
         <div className="flex flex-col p-4 border-b md:border-r border-l bg-muted/10 hover:bg-muted/40 transition-colors">
-          <h3 className="text-lg font-medium mb-1 flex items-center gap-2 mb-4">
+          <h3 className="text-lg font-medium flex items-center gap-2 mb-4">
             <Clock className="size-6 text-primary" />
             Save Time
           </h3>
           <p className="text-sm text-muted-foreground">
-            <span className="font-semibold text-primary">Automate</span> and
-            simplify your fitness journey to focus on what matters.
+            <span className="font-semibold text-primary">Automate</span>{" "}
+            branding tasks, more room for work.
           </p>
         </div>
       </div>
