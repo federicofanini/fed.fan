@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,12 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { Copy, Loader } from "lucide-react";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { toast } from "sonner";
 import { getUserCount } from "@/actions/user-count";
+import { PayToShareClient } from "./payToShareClient";
 
 const prices = [
   {
@@ -26,7 +20,6 @@ const prices = [
     name: "Publish your profile",
     description:
       "Share your profile and reserve your profile URL - fed.fan/username",
-
     yearlyPrice: 2900,
     anchorPrice: 5900,
     isMostPopular: true,
@@ -47,58 +40,9 @@ const Badge = ({ type }: { type: "personal" | "business" }) => (
   </span>
 );
 
-export function PayToShare() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [userCount, setUserCount] = useState(0);
-  const router = useRouter();
-
-  useEffect(() => {
-    async function fetchUserCount() {
-      const response = await getUserCount();
-      if (response?.data?.success) {
-        setUserCount(response.data.data);
-      }
-    }
-    fetchUserCount();
-  }, []);
-
-  const onSubscribeClick = async (productId: string) => {
-    setIsLoading(true);
-    try {
-      const { data } = await axios.post(
-        "/api/creem/checkout",
-        { productId },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-
-      if (data.success) {
-        router.push(data.checkout.checkout_url);
-      } else {
-        toast.error("Failed to create checkout session");
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          toast.error("Please sign in to continue");
-          router.push("/login");
-        } else {
-          toast.error(
-            error.response?.data?.message || "Error creating checkout session"
-          );
-        }
-      } else {
-        toast.error("An unexpected error occurred");
-      }
-      console.error("Error creating checkout session:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+export async function PayToShare() {
+  const response = await getUserCount();
+  const userCount = response?.data?.data || 0;
 
   return (
     <div className="mt-4 space-y-3">
@@ -134,20 +78,7 @@ export function PayToShare() {
             </div>
           </CardHeader>
           <CardContent className="pt-0">
-            <Button
-              className="w-full font-medium"
-              disabled={isLoading}
-              onClick={() => onSubscribeClick(price.id)}
-            >
-              {isLoading ? (
-                <>
-                  <Loader className="mr-2 h-3.5 w-3.5 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                "Get your username"
-              )}
-            </Button>
+            <PayToShareClient productId={price.id} />
           </CardContent>
           <CardFooter>
             <div className="w-full p-4 rounded-lg border-2 border-dashed border-primary/60 bg-primary/5">
@@ -172,23 +103,7 @@ export function PayToShare() {
                 </div>
 
                 <div className="relative">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full text-sm font-medium bg-background hover:bg-primary/10 border-primary/30 hover:border-primary transition-colors flex items-center justify-center gap-2"
-                    onClick={() => {
-                      navigator.clipboard.writeText("FREE");
-                      toast.success(
-                        "Copied discount code - use 'FREE' at checkout for 100% off!"
-                      );
-                    }}
-                  >
-                    <span>Click to copy discount code:</span>
-                    <code className="font-mono font-bold text-primary">
-                      FREE
-                    </code>
-                    <Copy className="h-4 w-4 text-primary/70" />
-                  </Button>
+                  <PayToShareClient.CopyButton />
                 </div>
               </div>
             </div>

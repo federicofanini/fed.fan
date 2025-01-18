@@ -14,19 +14,12 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
-import { redirect } from "next/navigation";
-import { getUser } from "@/utils/supabase/database/cached-queries";
 
 export const metadata: Metadata = {
   title: "Login",
 };
 
 export default async function Page() {
-  const user = await getUser();
-  if (user) {
-    redirect("/blackboard");
-  }
-
   const cookieStore = await cookies();
   const preferred = cookieStore.get(Cookies.PreferredSignInProvider);
   const showTrackingConsent =
