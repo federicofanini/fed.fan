@@ -83,9 +83,7 @@ export default function WebsitePage() {
           </CardHeader>
           <CardContent>
             <div className="min-h-[200px] flex items-center justify-center text-gray-500">
-              {storedUsername
-                ? `Current username: ${storedUsername}`
-                : "No username set"}
+              {storedUsername ? `fed.fan/${storedUsername}` : "No username set"}
             </div>
           </CardContent>
         </Card>

@@ -65,14 +65,18 @@ model feedback {
 }
 
 model skills {
-  id      String @id @default(uuid())
-  user_id String
-  user    user   @relation(fields: [user_id], references: [id])
-  skill   String
-  level   Int
+  id       String @id @default(uuid())
+  user_id  String
+  user     user   @relation(fields: [user_id], references: [id])
+  category String // leadership, business-development, financial, marketing, etc.
+  skill_id String // team-building, vision-setting, etc.
+  level    Int // 1-5 rating scale
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  @@unique([user_id, category, skill_id])
+  @@index([user_id])
 }
 
 model projects {
@@ -111,10 +115,15 @@ model hobbies {
 }
 
 model stack {
-  id         String   @id @default(uuid())
-  user_id    String
-  user       user     @relation(fields: [user_id], references: [id])
-  stack      String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          String   @id @default(uuid())
+  user_id     String
+  user        user     @relation(fields: [user_id], references: [id])
+  category    String // frontend, backend, devOps, testing, mobile, versionControl
+  subcategory String // languages, frameworks, styling, tools, CI_CD, libraries, methodologies
+  item        String // The actual tech stack item like "React", "Node.js", etc.
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@unique([user_id, category, subcategory, item])
+  @@index([user_id])
 }
