@@ -14,12 +14,14 @@ import { Statistics } from "@/components/sections/statistics";
 import { Testimonials } from "@/components/sections/testimonials";
 import { UseCases } from "@/components/sections/use-cases";
 import { Benefits } from "@/components/sections/benefits";
+import { Profiles } from "@/components/sections/profiles";
 
 export default function Home() {
   return (
     <main>
       <Header />
       <Hero />
+      <Profiles />
       <OldNew />
       <Pricing />
       <Benefits />
