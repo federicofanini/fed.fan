@@ -7,6 +7,7 @@ import AvatarCircles from "../ui/avatar-circles";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { Check } from "lucide-react";
+import { getUserCount } from "@/actions/user-count";
 
 const getAvatarUrls = unstable_cache(
   async () => {
@@ -64,8 +65,8 @@ function HeroTitles() {
       <h1 className="text-center text-4xl font-semibold leading-tighter text-foreground sm:text-4xl md:text-5xl tracking-tighter mb-8">
         <span className="inline-block text-balance">
           <AuroraText className="leading-normal">
-            Build your dream <br />
-            body with habits that last
+            Build your brand. <br />
+            Connect with your network.
           </AuroraText>
         </span>
       </h1>
@@ -73,34 +74,29 @@ function HeroTitles() {
         <li className="flex items-center gap-2">
           <Check className="h-5 w-5 text-primary" />
           <span>
-            Get{" "}
-            <span className="font-semibold text-primary">
-              sustainable results
-            </span>
+            <span className="font-semibold text-primary ">Build</span> a
+            standout profile
           </span>
         </li>
         <li className="flex items-center gap-2">
           <Check className="h-5 w-5 text-primary" />
           <span>
-            <span className="font-semibold text-primary">Track workouts</span>{" "}
-            intelligently
+            <span className="font-semibold text-primary ">Grow</span> your
+            fanbase
           </span>
         </li>
         <li className="flex items-center gap-2">
           <Check className="h-5 w-5 text-primary" />
           <span>
-            Build{" "}
-            <span className="font-semibold text-primary">
-              personalized habits
-            </span>{" "}
-            that stick
+            <span className="font-semibold text-primary ">Share</span> your
+            journey
           </span>
         </li>
         <li className="flex items-center gap-2">
           <Check className="h-5 w-5 text-primary" />
           <span>
-            Stay on top of your{" "}
-            <span className="font-semibold text-primary">goals</span>
+            <span className="font-semibold text-primary ">Create</span>{" "}
+            meaningful connections
           </span>
         </li>
       </ul>
@@ -108,7 +104,10 @@ function HeroTitles() {
   );
 }
 
-function HeroCTA() {
+async function HeroCTA() {
+  const response = await getUserCount();
+  const count = response?.data?.data;
+
   return (
     <div className="relative mt-6">
       <div className="flex w-full max-w-2xl flex-col items-center justify-center space-y-4 sm:flex-row  sm:space-y-0">
@@ -117,8 +116,8 @@ function HeroCTA() {
         </Link>
       </div>
       <p className="mt-8 text-xs text-muted-foreground text-center font-mono">
-        Join <span className="font-semibold text-primary">10+</span> startup
-        founders
+        <span className="font-semibold text-primary">{count}</span> startup
+        founders joined.
       </p>
     </div>
   );
@@ -126,11 +125,15 @@ function HeroCTA() {
 
 async function Avatars() {
   const avatarUrls = await getAvatarUrls();
+  const response = await getUserCount();
+  const count = response?.data?.data;
   return (
     <div className="mt-4 flex flex-col items-center justify-center">
-      <AvatarCircles numPeople={10} avatarUrls={avatarUrls} />
+      <AvatarCircles numPeople={count} avatarUrls={avatarUrls} />
       <p className="mt-4 text-xs text-muted-foreground text-center font-mono">
-        <span className="font-semibold text-primary">Free </span>during beta.
+        <span className="font-semibold text-primary">Free </span> for the first{" "}
+        <span className="font-semibold text-primary">{100 - count}</span>{" "}
+        founders.
       </p>
     </div>
   );
