@@ -10,6 +10,7 @@ import { fetchUsernameAction } from "@/actions/username/fetch";
 import { toast } from "sonner";
 import { FounderPage, Founder } from "@/components/website/founder-page";
 import { getFounderProfile } from "@/actions/username/getFounderProfile";
+import { PayToShare } from "@/components/blackboard/website/payToShare";
 
 export default function WebsitePage() {
   const [username, setUsername] = useState("");
@@ -137,6 +138,7 @@ export default function WebsitePage() {
               </form>
             </CardContent>
           </Card>
+          <PayToShare />
         </div>
 
         {/* Website Preview */}
