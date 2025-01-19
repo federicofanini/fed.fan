@@ -1,18 +1,22 @@
-import {
-  LinkIcon,
-  LucideLinkedin,
-  LucideInstagram,
-  LucideYoutube,
-  LucideMusic2,
-  LucideSend,
-  LucideMail,
-  MapPin,
-} from "lucide-react";
+import { LinkIcon, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import { Founder } from "./founder-page";
 import { Icons } from "../icons";
+import { Button } from "../ui/button";
+import {
+  SiGithub,
+  SiTwitter,
+  SiLinkedin,
+  SiInstagram,
+  SiYoutube,
+  SiTiktok,
+  SiDiscord,
+  SiTelegram,
+  SiBluesky,
+} from "react-icons/si";
+import { MdEmail } from "react-icons/md";
 
 export function FounderProfile({
   founder,
@@ -22,10 +26,10 @@ export function FounderProfile({
   imgUrl: string;
 }) {
   return (
-    <div className="relative w-full overflow-hidden border bg-gradient-to-b from-background via-secondary/5 to-background">
+    <div className="relative w-full overflow-hidden bg-gradient-to-b from-background via-secondary/5 to-background">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-secondary/20 via-background to-background opacity-40" />
 
-      <div className="relative px-4 py-6 sm:p-8 md:p-12">
+      <div className="relative">
         <div className="flex flex-col gap-6 md:gap-8">
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
             {imgUrl ? (
@@ -86,16 +90,16 @@ export function FounderProfile({
 
           <div className="flex flex-wrap justify-center sm:justify-start gap-2">
             {Object.entries({
-              GitHub: { url: founder.github, icon: Icons.github },
-              Twitter: { url: founder.twitter, icon: Icons.twitter },
-              LinkedIn: { url: founder.linkedin, icon: LucideLinkedin },
-              Instagram: { url: founder.instagram, icon: LucideInstagram },
-              YouTube: { url: founder.youtube, icon: LucideYoutube },
-              TikTok: { url: founder.tiktok, icon: LucideMusic2 },
-              Discord: { url: founder.discord, icon: Icons.discord },
-              Telegram: { url: founder.telegram, icon: LucideSend },
-              BlueSky: { url: founder.bsky, icon: Icons.aria },
-              Contact: { url: founder.contactEmail, icon: LucideMail },
+              GitHub: { url: founder.github, icon: SiGithub },
+              Twitter: { url: founder.twitter, icon: SiTwitter },
+              LinkedIn: { url: founder.linkedin, icon: SiLinkedin },
+              Instagram: { url: founder.instagram, icon: SiInstagram },
+              YouTube: { url: founder.youtube, icon: SiYoutube },
+              TikTok: { url: founder.tiktok, icon: SiTiktok },
+              Discord: { url: founder.discord, icon: SiDiscord },
+              Telegram: { url: founder.telegram, icon: SiTelegram },
+              BlueSky: { url: founder.bsky, icon: SiBluesky },
+              Contact: { url: founder.contactEmail, icon: MdEmail },
             })
               .filter(([_, data]) => data.url)
               .map(([name, { url, icon: Icon }]) => (
@@ -106,13 +110,9 @@ export function FounderProfile({
                   }
                   target={name === "Contact" ? "_self" : "_blank"}
                 >
-                  <Badge
-                    variant="secondary"
-                    className="rounded-md flex items-center gap-1.5"
-                  >
-                    <Icon className="size-3" />
-                    {name}
-                  </Badge>
+                  <Button variant="ghost" size="icon" title={name}>
+                    <Icon className="size-4" />
+                  </Button>
                 </Link>
               ))}
           </div>
