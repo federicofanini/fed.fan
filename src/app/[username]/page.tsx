@@ -5,6 +5,7 @@ import {
 } from "@/components/website/founder-page";
 import { getFounderProfile } from "@/actions/username/getFounderProfile";
 import { JoinCTA } from "@/components/website/join-cta";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 // Define the type for the dynamic route params
 type PageParams = { username: string } & Promise<any>;
@@ -69,6 +70,9 @@ export default async function Founder({ params }: { params: PageParams }) {
 
   return (
     <>
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <FounderPage founder={founder} imgUrl={founderData.avatar_url || ""} />
       <JoinCTA />
     </>
