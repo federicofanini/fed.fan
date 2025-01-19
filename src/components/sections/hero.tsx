@@ -147,12 +147,37 @@ async function Avatars() {
 // . <br />
 // <br />
 
+function UsernameInput() {
+  return (
+    <div className="relative mt-8 w-full max-w-xs mx-auto">
+      <p className="text-sm text-muted-foreground font-mono mb-1">
+        Choose your username:
+      </p>
+      <div className="flex items-center gap-2 p-3 rounded-lg border border-border/50 bg-card/50">
+        <div className="flex-shrink-0 text-sm text-muted-foreground font-mono">
+          fed.fan/
+        </div>
+        <input
+          type="text"
+          placeholder="username"
+          className="flex-1 bg-transparent border-none outline-none text-sm placeholder:text-muted-foreground/50 focus:ring-0"
+          spellCheck={false}
+          autoCapitalize="none"
+          autoComplete="off"
+          autoCorrect="off"
+        />
+      </div>
+    </div>
+  );
+}
+
 export async function Hero() {
   return (
     <Section id="hero">
       <div className="relative w-full p-6 lg:p-12 border-x overflow-hidden flex justify-center items-center">
         <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
           <HeroTitles />
+          <UsernameInput />
           <HeroCTA />
           <Avatars />
         </div>
