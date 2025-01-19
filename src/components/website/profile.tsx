@@ -52,7 +52,7 @@ export function FounderProfile({
 
             <div className="space-y-3 text-center sm:text-left">
               {founder.full_name && (
-                <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-br from-white to-white/60 bg-clip-text">
                   {founder.full_name}
                 </h1>
               )}

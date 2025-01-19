@@ -20,8 +20,8 @@ interface Project {
 export function Projects({ projects }: { projects: Project[] }) {
   const statusColors = {
     active: "bg-green-500",
-    inactive: "bg-yellow-500",
-    building: "bg-blue-500",
+    inactive: "bg-cyan-500",
+    building: "bg-yellow-500",
     sold: "bg-purple-500",
     abandoned: "bg-gray-500",
     failed: "bg-red-500",
