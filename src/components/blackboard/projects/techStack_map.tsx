@@ -19,6 +19,8 @@ import {
   SiElasticsearch,
   SiRedis,
   SiNginx,
+  SiSupabase,
+  SiGithub,
 } from "react-icons/si";
 
 export const techStackIcons = {
@@ -38,13 +40,14 @@ export const techStackIcons = {
   MongoDB: SiMongodb,
   Redis: SiRedis,
   Elasticsearch: SiElasticsearch,
+  Supabase: SiSupabase,
 
   // DevOps & Cloud
   Docker: SiDocker,
   Kubernetes: SiKubernetes,
   AWS: SiAmazonaws,
   Terraform: SiTerraform,
-  GitHubActions: SiGithubactions,
+  GitHubActions: SiGithub,
   Jenkins: SiJenkins,
   Nginx: SiNginx,
 

@@ -168,10 +168,17 @@ export const techStack = [
       {
         name: "languages",
         items: ["html", "css", "javascript", "typescript"],
+        icons: {
+          javascript: "SiJavascript",
+          typescript: "SiTypescript",
+        },
       },
       {
         name: "frameworks",
         items: ["react", "next.js", "vue.js", "svelte", "angular"],
+        icons: {
+          react: "SiReact",
+        },
       },
       {
         name: "styling",
@@ -184,7 +191,13 @@ export const techStack = [
     subcategories: [
       {
         name: "languages",
-        items: ["node.js", "python", "ruby", "java", "go"],
+        items: ["node.js", "python", "ruby", "java", "go", "rust"],
+        icons: {
+          "node.js": "SiNodedotjs",
+          python: "SiPython",
+          go: "SiGo",
+          rust: "SiRust",
+        },
       },
       {
         name: "frameworks",
@@ -199,7 +212,15 @@ export const techStack = [
           "supabase",
           "sqlite",
           "redis",
+          "elasticsearch",
         ],
+        icons: {
+          postgresql: "SiPostgresql",
+          mongodb: "SiMongodb",
+          redis: "SiRedis",
+          elasticsearch: "SiElasticsearch",
+          supabase: "SiSupabase",
+        },
       },
     ],
   },
@@ -215,11 +236,31 @@ export const techStack = [
           "aws",
           "azure",
           "google cloud",
+          "nginx",
         ],
+        icons: {
+          docker: "SiDocker",
+          kubernetes: "SiKubernetes",
+          terraform: "SiTerraform",
+          aws: "SiAmazonaws",
+          nginx: "SiNginx",
+        },
       },
       {
         name: "ci_cd",
         items: ["jenkins", "github actions", "circleci", "travis ci"],
+        icons: {
+          jenkins: "SiJenkins",
+          "github actions": "SiGithubactions",
+        },
+      },
+      {
+        name: "monitoring",
+        items: ["grafana", "prometheus"],
+        icons: {
+          grafana: "SiGrafana",
+          prometheus: "SiPrometheus",
+        },
       },
     ],
   },
