@@ -80,13 +80,17 @@ model skills {
 }
 
 model projects {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   user_id     String
-  user        user   @relation(fields: [user_id], references: [id])
+  user        user    @relation(fields: [user_id], references: [id])
   name        String
   description String
   url         String
   image_url   String
+  category    String? // e.g. "web", "mobile", "desktop", "api", "database", "devOps", "testing", "security", "design", "marketing", "product", "other"
+  status      String? // e.g. "active", "inactive", "in-progress", "completed", "on-hold", "cancelled", "other"
+  tech_stack  String? // e.g. "React, Node.js, PostgreSQL, Docker, AWS, etc."
+  tags        String? // e.g. "AI, ML, Blockchain, Web3, etc."
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
