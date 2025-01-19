@@ -22,7 +22,6 @@ export default function Home() {
       <Header />
       <Hero />
       <Profiles />
-      <OldNew />
       <Pricing />
       <Benefits />
       {/* <Testimonials />
