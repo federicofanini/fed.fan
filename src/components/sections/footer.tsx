@@ -66,18 +66,29 @@ export function Footer() {
             Federico
           </Link>
         </span>
-        <Link
+        {/* <Link
           href="https://www.uneed.best/tool/link-in-bio-portfolio"
           target="_blank"
         >
           <Image
             src="https://www.uneed.best/EMBED3.png"
             alt="Uneed Embed Badge"
-            width={150}
-            height={150}
+            width={75}
+            height={75}
             className="w-auto h-auto"
           />
-        </Link>
+        </Link> */}
+        <a
+          href="https://startupfa.me/s/fedfan?utm_source=fed.fan"
+          target="_blank"
+        >
+          <img
+            src="https://startupfa.me/badges/featured-badge.webp"
+            alt="fed.fan - Build your brand. Connect with your network | Startup Fame"
+            width={171}
+            height={54}
+          />
+        </a>
       </div>
       <BorderText
         text={siteConfig.footer.brandText}
