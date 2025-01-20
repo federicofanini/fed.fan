@@ -24,6 +24,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import Link from "next/link";
+import { ArrowUpRightIcon } from "lucide-react";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -262,6 +264,25 @@ export default function WebsitePage() {
         {/* Website Preview */}
         <div>
           <Card className="border-none">
+            <CardHeader className="flex items-center justify-center">
+              <div className="flex items-center justify-center font-bold text-lg">
+                <Link
+                  href={`https://fed.fan/${storedUsername}`}
+                  target="_blank"
+                  className="text-primary hover:underline flex items-center justify-center"
+                >
+                  <span className="text-muted-foreground font-semibold">
+                    fed.fan/
+                  </span>
+                  {storedUsername ? (
+                    storedUsername
+                  ) : (
+                    <span className="inline-block w-20 h-3 bg-muted-foreground animate-pulse rounded" />
+                  )}
+                  <ArrowUpRightIcon className="w-4 h-4 ml-1 text-muted-foreground" />
+                </Link>
+              </div>
+            </CardHeader>
             <CardContent>
               {founderData ? (
                 <div className="border rounded-lg p-4">
