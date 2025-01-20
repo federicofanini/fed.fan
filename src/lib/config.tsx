@@ -16,7 +16,7 @@ import {
 
 export const BLUR_FADE_DELAY = 0.15;
 
-export const USERS_DISCOUNT_LIMIT = 30;
+export const USERS_DISCOUNT_LIMIT = 35;
 
 export const siteConfig = {
   name: "fed.fan",
@@ -172,8 +172,8 @@ export const siteConfig = {
     {
       id: "prod_1yBt3p2qkG3Z9sREp6PsH8",
       name: "Lifetime",
-      price_anchor: "$59",
-      price: { monthly: "$29", yearly: "$29" },
+      price_anchor: "$39",
+      price: { monthly: "$29", yearly: "$19" },
       frequency: { monthly: "month", yearly: "lifetime" },
       description: "Ideal for professionals and growing businesses.",
       features: ["All in monthly plan", "Pay once, your forever"],
@@ -183,8 +183,8 @@ export const siteConfig = {
     {
       id: "prod_1V9nuXXP2y2gGCHKaOP4vW",
       name: "Source Code",
-      price_anchor: "$199",
-      price: { monthly: "$999", yearly: "$99" },
+      price_anchor: "$99",
+      price: { monthly: "$999", yearly: "$49" },
       frequency: { monthly: "month", yearly: "lifetime" },
       description: "Tailored solutions for self-hosted websites.",
       features: [

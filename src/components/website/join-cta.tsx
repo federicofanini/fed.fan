@@ -1,15 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { getUserCount } from "@/actions/user-count";
-import { Dot, Sparkles } from "lucide-react";
-import { ShinyButton } from "../ui/shiny-button";
+import { USERS_DISCOUNT_LIMIT } from "@/lib/config";
+import { Gift, LampDesk } from "lucide-react";
 
 export function JoinCTA() {
   const [userCount, setUserCount] = useState<number>(0);
-  const remainingFreeSlots = 25 - userCount;
+  const remainingFreeSlots = USERS_DISCOUNT_LIMIT - userCount;
   const hasRemainingSlots = remainingFreeSlots > 0;
 
   useEffect(() => {
@@ -27,15 +26,24 @@ export function JoinCTA() {
       {hasRemainingSlots && (
         <Link
           href="/"
-          className="rounded-full bg-secondary px-4 py-1 text-xs text-muted-foreground backdrop-blur-sm flex items-center gap-1"
+          className="rounded-full bg-secondary px-4 py-1 text-xs backdrop-blur-sm flex items-center gap-1 font-semibold"
         >
-          <span className="font-medium text-green-500 flex items-center gap-1">
-            <div className="w-2 h-2 rounded-full animate-pulse bg-green-500" />
-            {remainingFreeSlots}
-          </span>{" "}
-          <span className="text-xs font-bold">FREE</span> spots remaining!
+          <LampDesk className="size-3.5" />
+          Build your page
         </Link>
       )}
     </div>
   );
+}
+
+{
+  /* 
+<span className="font-medium text-green-500 flex items-center gap-1">
+            <Gift className="size-3.5 animate-pulse" />
+            50% OFF
+          </span>{" "}
+          <span className="text-xs font-bold">{remainingFreeSlots}</span> spots
+          left
+
+*/
 }
