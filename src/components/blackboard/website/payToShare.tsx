@@ -24,8 +24,7 @@ const prices = [
         ? "prod_3Ig5H7S7MJsXE6nTYlzcAu"
         : "prod_1yBt3p2qkG3Z9sREp6PsH8", // prod id Personal website
     name: "Publish your profile",
-    description:
-      "Share your profile and reserve your profile URL - fed.fan/username",
+    description: "Share your profile and reserve your profile URL - ",
 
     yearlyPrice: 2900,
     anchorPrice: 5900,
@@ -117,7 +116,10 @@ export function PayToShare() {
                   {price.name}
                 </CardTitle>
                 <CardDescription className="text-sm mt-0.5">
-                  {price.description}
+                  {price.description}{" "}
+                  <span className="text-primary font-bold">
+                    fed.fan/username
+                  </span>
                 </CardDescription>
               </div>
               <div className="text-right">
