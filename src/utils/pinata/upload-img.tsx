@@ -1,20 +1,31 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { pinata } from "./pinata";
 import Image from "next/image";
 import { Loader2, UploadIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { deleteImage } from "./delete-image";
 import { DeleteButton } from "./delete-button";
 import { updateCid } from "./cid";
+import { fetchAvatarUrlAction } from "@/actions/username/avatarUrl";
 
 export function Dropzone() {
   const [files, setFiles] = useState<
     Array<{ file: File; uploading: boolean; id?: string; cid?: string }>
   >([]);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchAvatar() {
+      const result = await fetchAvatarUrlAction({});
+      if (result?.data?.success && result?.data?.data) {
+        setAvatarUrl(result?.data?.data);
+      }
+    }
+    fetchAvatar();
+  }, []);
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length) {
@@ -64,26 +75,6 @@ export function Dropzone() {
     }
   }, []);
 
-  const removeFile = async (fileId: string, fileName: string) => {
-    if (fileId) {
-      try {
-        const result = await deleteImage(fileId);
-
-        if (result.success) {
-          setFiles((prevFiles) => prevFiles.filter((f) => f.id !== fileId));
-          // Clear the CID in the database by passing empty string
-          await updateCid("");
-          toast.success(`File ${fileName} deleted successfully`);
-        } else {
-          toast.error("Error deleting file");
-        }
-      } catch (error) {
-        console.error("Delete error:", error);
-        toast.error("Failed to delete file");
-      }
-    }
-  };
-
   const rejectedFiles = useCallback((fileRejection: FileRejection[]) => {
     if (fileRejection.length) {
       const toomanyFiles = fileRejection.find(
@@ -119,22 +110,47 @@ export function Dropzone() {
   return (
     <div className="w-[64px] h-[64px] relative">
       {!file ? (
-        <div
-          {...getRootProps({
-            className: "border-dashed rounded-lg border-2 w-full h-full",
-          })}
-        >
-          <input {...getInputProps()} />
-          {isDragActive ? (
-            <div className="flex items-center justify-center h-full">
-              <p className="text-xs text-center">Drop here</p>
+        avatarUrl ? (
+          <div className="relative w-full h-full">
+            <Image
+              src={avatarUrl}
+              alt="Profile avatar"
+              fill
+              className="rounded-lg object-cover"
+            />
+            <div
+              {...getRootProps({
+                className:
+                  "absolute inset-0 border-dashed rounded-lg border-2 opacity-0 hover:opacity-100 transition-opacity",
+              })}
+            >
+              <input {...getInputProps()} />
+              <div className="flex items-center justify-center h-full hover:bg-muted">
+                <UploadIcon className="size-6" />
+              </div>
             </div>
-          ) : (
-            <div className="flex items-center justify-center h-full">
-              <UploadIcon className="size-6" />
+            <div className="absolute -top-2 -right-2">
+              <DeleteButton fileId={avatarUrl.split("/").pop()!} />
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div
+            {...getRootProps({
+              className: "border-dashed rounded-lg border-2 w-full h-full",
+            })}
+          >
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <div className="flex items-center justify-center h-full">
+                <p className="text-xs text-center">Drop here</p>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center h-full">
+                <UploadIcon className="size-6" />
+              </div>
+            )}
+          </div>
+        )
       ) : (
         <div className="relative w-full h-full">
           <Image
@@ -152,12 +168,9 @@ export function Dropzone() {
               <Loader2 className="size-6 animate-spin text-primary" />
             </div>
           ) : (
-            <form
-              action={() => removeFile(file.id!, file.file.name)}
-              className="absolute -top-2 -right-2"
-            >
-              <DeleteButton />
-            </form>
+            <div className="absolute -top-2 -right-2">
+              <DeleteButton fileId={file.id!} />
+            </div>
           )}
         </div>
       )}

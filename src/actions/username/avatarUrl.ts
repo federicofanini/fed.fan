@@ -2,19 +2,16 @@
 
 import { createSafeActionClient } from "next-safe-action";
 import { z } from "zod";
-import type { ActionResponse } from "@/actions/types/action-response";
+import type { ActionResponse } from "../types/action-response";
 import { prisma } from "@/lib/db";
 import { createClient } from "@/utils/supabase/server";
-import { appErrors } from "@/actions/types/errors";
-import { pinata } from "./pinata";
+import { appErrors } from "../types/errors";
 
-const schema = z.object({
-  fileId: z.string(),
-});
+const schema = z.object({});
 
-export const deleteImage = createSafeActionClient()
+export const fetchAvatarUrlAction = createSafeActionClient()
   .schema(schema)
-  .action(async ({ parsedInput }): Promise<ActionResponse> => {
+  .action(async (): Promise<ActionResponse> => {
     try {
       const supabase = await createClient();
 
@@ -30,25 +27,27 @@ export const deleteImage = createSafeActionClient()
         };
       }
 
-      // Delete from Pinata
-      await pinata.files.delete([parsedInput.fileId]);
-
-      // Update user profile
-      await prisma.user.update({
+      const profile = await prisma.user.findUnique({
         where: {
           id: user.id,
         },
-        data: {
-          avatar_url: null,
+        select: {
+          avatar_url: true,
         },
       });
 
+      if (!profile) {
+        return {
+          success: false,
+          error: appErrors.NOT_FOUND,
+        };
+      }
+
       return {
         success: true,
-        data: null,
+        data: profile.avatar_url,
       };
     } catch (error) {
-      console.error("Delete error:", error);
       return {
         success: false,
         error: appErrors.UNEXPECTED_ERROR,

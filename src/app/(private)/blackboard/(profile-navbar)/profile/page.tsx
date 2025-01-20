@@ -112,18 +112,19 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Basic Info */}
             <div className="space-y-4">
-              <div>
-                <Label>Profile Picture</Label>
-                <Dropzone />
-              </div>
-              <div>
-                <Label htmlFor="full_name">Full Name</Label>
-                <Input
-                  id="full_name"
-                  name="full_name"
-                  value={profile.full_name}
-                  onChange={handleChange}
-                />
+              <div className="flex items-center gap-4">
+                <div>
+                  <Dropzone />
+                </div>
+                <div className="flex-1">
+                  <Label htmlFor="full_name">Full Name</Label>
+                  <Input
+                    id="full_name"
+                    name="full_name"
+                    value={profile.full_name}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
               <div>
                 <Label htmlFor="email">Email</Label>
