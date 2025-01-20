@@ -7,7 +7,7 @@ import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { siteConfig, USERS_DISCOUNT_LIMIT } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Check, Gift } from "lucide-react";
+import { Check, Gift, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 import OutlinedButton from "../ui/outlined-button";
 import Link from "next/link";
@@ -99,21 +99,19 @@ function PricingTier({
     <div
       className={cn(
         "outline-focus transition-transform-background relative z-10 box-border grid h-full w-full overflow-hidden text-foreground motion-reduce:transition-none lg:border-r border-t last:border-r-0",
-        tier.popular ? "bg-primary/5" : "text-foreground"
+        tier.popular ? "border-primary border-l" : "border-muted"
       )}
     >
       <div className="flex flex-col h-full">
         <CardHeader className="border-b p-4 grid grid-rows-2 h-fit">
           <CardTitle className="flex items-center justify-between">
-            <span className="text-sm font-medium text-muted-foreground">
-              {tier.name}
-            </span>
+            <span className="text-md font-semibold">{tier.name}</span>
             {tier.popular && (
               <Badge
-                variant="secondary"
-                className="bg-primary text-primary-foreground hover:bg-secondary-foreground"
+                variant="default"
+                className="hover:bg-primary/50 font-bold"
               >
-                Most Popular
+                Hot deal 🔥
               </Badge>
             )}
           </CardTitle>
@@ -165,7 +163,16 @@ function PricingTier({
               : "bg-muted text-foreground hover:bg-muted/80"
           )}
         >
-          {tier.cta}
+          <Link href="/login">
+            {tier.popular ? (
+              <div className="flex items-center justify-center">
+                <Sparkles className="size-4 mr-2" />
+                Get it now
+              </div>
+            ) : (
+              tier.cta
+            )}
+          </Link>
         </Button>
       </div>
     </div>
@@ -200,8 +207,11 @@ export function Pricing() {
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-balance">
               Simple pricing for everyone.
             </h2>
+            <p className="text-lg text-muted-foreground mt-4">
+              Build your brand and connect with your network.
+            </p>
 
-            <div className="mt-4 text-md sm:text-lg text-muted-foreground text-center font-mono">
+            {/*<div className="mt-4 text-md sm:text-lg text-muted-foreground text-center font-mono">
               <p className="mt-8 text-xs text-muted-foreground text-center font-mono flex items-center justify-center gap-2">
                 <span className="font-bold flex items-center justify-center text-green-500 border p-2 rounded-lg border-green-500/50">
                   <Gift className="w-4 h-4 mr-1 animate-pulse" />
@@ -230,13 +240,13 @@ export function Pricing() {
               </span>
               <br />
               <br />
-            </div>
+            </div> */}
           </div>
-          <div className="flex items-center justify-center">
+          {/* <div className="flex items-center justify-center">
             <Link href="/login">
               <OutlinedButton>Launch your website</OutlinedButton>
             </Link>
-          </div>
+          </div> */}
           {/* <Tabs
             activeTab={billingCycle}
             setActiveTab={handleTabChange}
