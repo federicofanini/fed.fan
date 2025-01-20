@@ -152,6 +152,7 @@ export const siteConfig = {
   ],
   pricing: [
     {
+      id: "prod_6r8TMIsqelGNJRyHw6lV6X", // test mode prod_3Ig5H7S7MJsXE6nTYlzcAu
       name: "Monthly",
       price_anchor: "$9",
       price: { monthly: "$9", yearly: "$5" },
@@ -169,6 +170,7 @@ export const siteConfig = {
       cta: "Launch your website",
     },
     {
+      id: "prod_1yBt3p2qkG3Z9sREp6PsH8",
       name: "Lifetime Deal",
       price_anchor: "$59",
       price: { monthly: "$29", yearly: "$29" },
@@ -179,6 +181,7 @@ export const siteConfig = {
       cta: "Launch your website",
     },
     {
+      id: "prod_1V9nuXXP2y2gGCHKaOP4vW",
       name: "Source Code",
       price_anchor: "$199",
       price: { monthly: "$999", yearly: "$99" },
