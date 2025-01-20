@@ -48,7 +48,7 @@ export function Footer() {
         </div>
       </div>
       <SubscribeInput />
-      <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+      <div className="flex flex-col items-center justify-center gap-2 text-sm text-muted-foreground">
         <span className="flex items-center gap-2">
           Made with ☕️ and 🥐 by
           <Image
@@ -66,6 +66,18 @@ export function Footer() {
             Federico
           </Link>
         </span>
+        <Link
+          href="https://www.uneed.best/tool/link-in-bio-portfolio"
+          target="_blank"
+        >
+          <Image
+            src="https://www.uneed.best/EMBED3.png"
+            alt="Uneed Embed Badge"
+            width={150}
+            height={150}
+            className="w-auto h-auto"
+          />
+        </Link>
       </div>
       <BorderText
         text={siteConfig.footer.brandText}
