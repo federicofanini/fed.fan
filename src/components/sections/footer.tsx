@@ -83,10 +83,10 @@ export function Footer() {
           target="_blank"
         >
           <img
-            src="https://startupfa.me/badges/featured-badge.webp"
+            src="https://startupfa.me/badges/featured-badge-small.webp"
             alt="fed.fan - Build your brand. Connect with your network | Startup Fame"
-            width={171}
-            height={54}
+            width="224"
+            height="36"
           />
         </a>
       </div>
