@@ -1,10 +1,10 @@
 import { AuroraText } from "@/components/aurora-text";
 import { Section } from "@/components/section";
-import { siteConfig } from "@/lib/config";
+import { siteConfig, USERS_DISCOUNT_LIMIT } from "@/lib/config";
 import Link from "next/link";
 import OutlinedButton from "../ui/outlined-button";
 import AvatarCircles from "../ui/avatar-circles";
-import { Check } from "lucide-react";
+import { Check, Gift } from "lucide-react";
 
 const getAvatarUrls = () => {
   const mockAvatars = [
@@ -123,9 +123,10 @@ async function HeroCTA({ count }: { count: number }) {
           <OutlinedButton>{siteConfig.hero.cta}</OutlinedButton>
         </Link>
       </div>
-      <p className="mt-8 text-xs text-muted-foreground text-center font-mono">
-        <span className="font-semibold text-primary">{count}</span> startup
-        founders joined.
+      <p className="mt-8 text-sm text-muted-foreground text-center font-mono">
+        Join
+        <span className="font-semibold text-primary"> {count}</span> amazing
+        people
       </p>
     </div>
   );
@@ -136,10 +137,20 @@ async function Avatars({ count }: { count: number }) {
   return (
     <div className="mt-4 flex flex-col items-center justify-center">
       <AvatarCircles numPeople={count} avatarUrls={avatarUrls} />
-      <p className="mt-4 text-xs text-muted-foreground text-center font-mono">
-        <span className="font-semibold text-primary">Free </span> for the first{" "}
-        <span className="font-semibold text-primary">{25 - count}</span>{" "}
-        founders.
+      <p className="mt-8 text-xs text-muted-foreground text-center font-mono flex items-center justify-center gap-2">
+        <span className="font-bold flex items-center justify-center text-green-500 border p-2 rounded-lg border-green-500/50">
+          <Gift className="w-4 h-4 mr-1 animate-pulse" />
+          50% OFF{" "}
+        </span>{" "}
+        for the first{" "}
+        <span className="font-semibold text-primary">
+          {USERS_DISCOUNT_LIMIT}
+        </span>{" "}
+        founders{" "}
+        <span className="font-semibold text-primary">
+          ({USERS_DISCOUNT_LIMIT - count} left)
+        </span>{" "}
+        .
       </p>
     </div>
   );

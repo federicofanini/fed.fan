@@ -4,10 +4,10 @@ import { Section } from "@/components/section";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { siteConfig } from "@/lib/config";
+import { siteConfig, USERS_DISCOUNT_LIMIT } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, Gift } from "lucide-react";
 import { useState, useEffect } from "react";
 import OutlinedButton from "../ui/outlined-button";
 import Link from "next/link";
@@ -198,26 +198,40 @@ export function Pricing() {
               Simple pricing for everyone.
             </h2>
 
-            <p className="mt-4 text-md sm:text-lg text-muted-foreground text-center font-mono">
+            <div className="mt-4 text-md sm:text-lg text-muted-foreground text-center font-mono">
+              <p className="mt-8 text-xs text-muted-foreground text-center font-mono flex items-center justify-center gap-2">
+                <span className="font-bold flex items-center justify-center text-green-500 border p-2 rounded-lg border-green-500/50">
+                  <Gift className="w-4 h-4 mr-1 animate-pulse" />
+                  50% OFF{" "}
+                </span>{" "}
+                for the first{" "}
+                <span className="font-semibold text-primary">
+                  {USERS_DISCOUNT_LIMIT}
+                </span>{" "}
+                founders{" "}
+                <span className="font-semibold text-primary">
+                  ({USERS_DISCOUNT_LIMIT - count} left)
+                </span>{" "}
+                .
+              </p>
               <br />
               Get{" "}
               <span className="font-semibold text-primary space-y-8">
                 lifetime access for{" "}
+                <span className="text-sm font-medium line-through text-muted-foreground mr-2">
+                  $59
+                </span>
                 <Badge className="bg-primary text-lg text-primary-foreground">
                   $29
                 </Badge>
               </span>
               <br />
               <br />
-              <span className="font-semibold text-primary">Free </span>for the
-              first{" "}
-              <span className="font-semibold text-primary">{25 - count}</span>{" "}
-              founders.
-            </p>
+            </div>
           </div>
           <div className="flex items-center justify-center">
             <Link href="/login">
-              <OutlinedButton>Start for free</OutlinedButton>
+              <OutlinedButton>Launch your website</OutlinedButton>
             </Link>
           </div>
           {/* <Tabs

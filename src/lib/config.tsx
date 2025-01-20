@@ -16,6 +16,8 @@ import {
 
 export const BLUR_FADE_DELAY = 0.15;
 
+export const USERS_DISCOUNT_LIMIT = 30;
+
 export const siteConfig = {
   name: "fed.fan",
   description:
