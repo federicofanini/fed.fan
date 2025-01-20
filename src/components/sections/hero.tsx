@@ -150,7 +150,6 @@ async function Avatars({ count }: { count: number }) {
         <span className="font-semibold text-primary">
           ({USERS_DISCOUNT_LIMIT - count} left)
         </span>{" "}
-        .
       </p>
     </div>
   );
