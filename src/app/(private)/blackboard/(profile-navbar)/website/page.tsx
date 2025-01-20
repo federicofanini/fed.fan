@@ -12,13 +12,41 @@ import { FounderPage, Founder } from "@/components/website/founder-page";
 import { getFounderProfile } from "@/actions/username/getFounderProfile";
 import { PayToShare } from "@/components/blackboard/website/payToShare";
 import { checkPaidStatusAction } from "@/actions/username/paid";
+import { checkUsernameAvailability } from "@/actions/username/checkUsername";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+const formSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+});
 
 export default function WebsitePage() {
-  const [username, setUsername] = useState("");
   const [storedUsername, setStoredUsername] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [founderData, setFounderData] = useState<Founder | null>(null);
   const [isPaid, setIsPaid] = useState(false);
+  const [isCheckingUsername, setIsCheckingUsername] = useState(false);
+  const [isUsernameAvailable, setIsUsernameAvailable] = useState<
+    boolean | null
+  >(null);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+    },
+  });
 
   useEffect(() => {
     fetchUsername();
@@ -30,6 +58,30 @@ export default function WebsitePage() {
       fetchFounderData();
     }
   }, [storedUsername]);
+
+  // Debounced username availability check
+  useEffect(() => {
+    const username = form.watch("username");
+    if (username.length < 2) {
+      setIsUsernameAvailable(null);
+      return;
+    }
+
+    const checkUsername = async () => {
+      setIsCheckingUsername(true);
+      try {
+        const isAvailable = await checkUsernameAvailability(username);
+        setIsUsernameAvailable(isAvailable);
+      } catch (err) {
+        setIsUsernameAvailable(false);
+      } finally {
+        setIsCheckingUsername(false);
+      }
+    };
+
+    const timeoutId = setTimeout(checkUsername, 500);
+    return () => clearTimeout(timeoutId);
+  }, [form.watch("username")]);
 
   async function checkPaidStatus() {
     const result = await checkPaidStatusAction({});
@@ -101,16 +153,20 @@ export default function WebsitePage() {
     }
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!isUsernameAvailable) {
+      toast.error("Please choose a different username");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const result = await updateUsernameAction({ username });
+      const result = await updateUsernameAction({ username: values.username });
       if (result?.data?.success) {
         toast.success("Username updated successfully!");
-        setUsername("");
-        await fetchUsername(); // Refresh the displayed username
+        form.reset();
+        await fetchUsername();
       } else {
         toast.error(result?.data?.error || "Failed to update username");
       }
@@ -131,24 +187,76 @@ export default function WebsitePage() {
               <CardTitle>Update Username</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="username">Username</Label>
-                  <Input
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder={storedUsername || "Enter your username"}
-                    disabled={isSubmitting || !isPaid}
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-4"
+                >
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              placeholder={
+                                storedUsername || "Enter your username"
+                              }
+                              disabled={isSubmitting}
+                              className={`${
+                                isUsernameAvailable === true
+                                  ? "border-green-500"
+                                  : isUsernameAvailable === false
+                                  ? "border-red-500"
+                                  : ""
+                              }`}
+                              {...field}
+                            />
+                            {isCheckingUsername && (
+                              <span className="absolute right-3 top-2 text-sm text-muted-foreground">
+                                Checking...
+                              </span>
+                            )}
+                            {!isCheckingUsername &&
+                              isUsernameAvailable === true && (
+                                <span className="absolute right-3 top-2 text-sm text-green-500">
+                                  Available
+                                </span>
+                              )}
+                            {!isCheckingUsername &&
+                              isUsernameAvailable === false && (
+                                <span className="absolute right-3 top-2 text-sm text-red-500">
+                                  Taken
+                                </span>
+                              )}
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <Button type="submit" disabled={isSubmitting || !isPaid}>
-                  {isSubmitting ? "Updating..." : "Update Username"}
-                </Button>
-              </form>
+                  <Button
+                    type="submit"
+                    disabled={
+                      isSubmitting &&
+                      isCheckingUsername &&
+                      !isUsernameAvailable &&
+                      !isPaid
+                    }
+                  >
+                    {isSubmitting
+                      ? "Updating..."
+                      : isPaid
+                      ? "Update Username"
+                      : "Upgrade to Update Username"}
+                  </Button>
+                </form>
+              </Form>
             </CardContent>
           </Card>
-          <PayToShare />
+          {!isPaid && <PayToShare />}
         </div>
 
         {/* Website Preview */}
