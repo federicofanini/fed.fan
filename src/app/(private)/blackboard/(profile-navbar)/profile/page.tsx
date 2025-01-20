@@ -9,8 +9,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchUserProfileAction } from "@/actions/profile/fetch";
 import { updateProfileAction } from "@/actions/profile/update";
 import { toast } from "sonner";
+import { Dropzone } from "@/utils/pinata/upload-img";
 
 interface UserProfile {
+  id: string;
   email: string;
   full_name: string;
   avatar_url: string | null;
@@ -54,7 +56,7 @@ export default function ProfilePage() {
     }
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!profile) return;
 
@@ -110,6 +112,10 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Basic Info */}
             <div className="space-y-4">
+              <div>
+                <Label>Profile Picture</Label>
+                <Dropzone />
+              </div>
               <div>
                 <Label htmlFor="full_name">Full Name</Label>
                 <Input
