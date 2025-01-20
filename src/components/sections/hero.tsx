@@ -4,36 +4,47 @@ import { siteConfig } from "@/lib/config";
 import Link from "next/link";
 import OutlinedButton from "../ui/outlined-button";
 import AvatarCircles from "../ui/avatar-circles";
-import { unstable_cache } from "next/cache";
-import { prisma } from "@/lib/db";
 import { Check } from "lucide-react";
-import { getUserCount } from "@/actions/user-count";
 
-const getAvatarUrls = unstable_cache(
-  async () => {
-    const users = await prisma.user.findMany({
-      select: {
-        avatar_url: true,
-      },
-      where: {
-        avatar_url: {
-          not: null,
-        },
-      },
-      take: 10,
-      orderBy: {
-        created_at: "desc",
-      },
-    });
+const getAvatarUrls = () => {
+  const mockAvatars = [
+    {
+      imageUrl:
+        "https://lh3.googleusercontent.com/a/ACg8ocK6l_e9CYaL93GQ294stuNDLrXlssOAy2-Bhj2vgMq3P1WIKlA=s96-c",
+      profileUrl: "/federicofan",
+    },
+    {
+      imageUrl:
+        "https://lh3.googleusercontent.com/a/ACg8ocLi0vyVjWUjMK2c13ijA6oJsSHIVRL6bO_F4SeDC2Py0BUlcrc=s96-c",
+      profileUrl: "/pontus",
+    },
+    {
+      imageUrl: "https://avatars.githubusercontent.com/u/16581151?v=4",
+      profileUrl: "/thomas",
+    },
+    {
+      imageUrl: "/jupytergas.jpeg",
+      profileUrl: "/jupytergas",
+    },
+    {
+      imageUrl:
+        "https://lh3.googleusercontent.com/a/ACg8ocKYuLPFQuXYRGgMOHysI4j5bZkNJshUHuDAePc38r_tGRmoVu34=s96-c",
+      profileUrl: "/steellgold",
+    },
+    {
+      imageUrl:
+        "https://lh3.googleusercontent.com/a/ACg8ocLqoRn7LrTzJ_HjVtrGCtb59sMfs0eRkYvK3PpbfHYUeTivMVA=s96-c",
+      profileUrl: "/jonas",
+    },
+    {
+      imageUrl:
+        "https://lh3.googleusercontent.com/a/ACg8ocIzO9qLXZIe93WNrDsbQ2rPqxn8A3cUlpswZEmp_kyxIvTW-tNA=s96-c",
+      profileUrl: "/sebastianjanas",
+    },
+  ];
 
-    return users.map((user) => ({
-      imageUrl: user.avatar_url as string,
-      profileUrl: "#", // Added profileUrl to match Avatar type
-    }));
-  },
-  ["avatar-urls"],
-  { revalidate: 3600 * 3 } // Cache for 3 hours
-);
+  return mockAvatars;
+};
 
 function HeroPill() {
   return (
@@ -104,10 +115,7 @@ function HeroTitles() {
   );
 }
 
-async function HeroCTA() {
-  const response = await getUserCount();
-  const count = response?.data?.data;
-
+async function HeroCTA({ count }: { count: number }) {
   return (
     <div className="relative mt-6">
       <div className="flex w-full max-w-2xl flex-col items-center justify-center space-y-4 sm:flex-row  sm:space-y-0">
@@ -123,10 +131,8 @@ async function HeroCTA() {
   );
 }
 
-async function Avatars() {
+async function Avatars({ count }: { count: number }) {
   const avatarUrls = await getAvatarUrls();
-  const response = await getUserCount();
-  const count = response?.data?.data;
   return (
     <div className="mt-4 flex flex-col items-center justify-center">
       <AvatarCircles numPeople={count} avatarUrls={avatarUrls} />
@@ -171,15 +177,15 @@ function UsernameInput() {
   );
 }
 
-export async function Hero() {
+export async function Hero({ count }: { count: number }) {
   return (
     <Section id="hero">
       <div className="relative w-full p-6 lg:p-12 border-x overflow-hidden flex justify-center items-center">
         <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
           <HeroTitles />
           <UsernameInput />
-          <HeroCTA />
-          <Avatars />
+          <HeroCTA count={count} />
+          <Avatars count={count} />
         </div>
       </div>
     </Section>

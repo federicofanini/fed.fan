@@ -15,12 +15,18 @@ import { Testimonials } from "@/components/sections/testimonials";
 import { UseCases } from "@/components/sections/use-cases";
 import { Benefits } from "@/components/sections/benefits";
 import { Profiles } from "@/components/sections/profiles";
+import { getUserCount } from "@/actions/user-count";
 
-export default function Home() {
+export const revalidate = 900; // 15 minutes
+
+export default async function Home() {
+  const response = await getUserCount();
+  const count = response?.data?.data;
+
   return (
     <main>
       <Header />
-      <Hero />
+      <Hero count={count} />
       <Profiles />
       <Pricing />
       <Benefits />

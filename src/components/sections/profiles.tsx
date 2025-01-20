@@ -3,48 +3,29 @@ import { getFounderProfile } from "@/actions/username/getFounderProfile";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/db";
-
-export const revalidate = 10800; // 3 hours
 
 async function getRandomProfiles() {
-  // Always include federicofan first
-  const fedProfile = await getFounderProfile({ username: "federicofan" });
+  const usernames = [
+    "federicofan",
+    "pontus",
+    "thomas",
+    "JamesS",
+    "steellgold",
+    "jupytergas",
+    "jonas",
+    "rshivam",
+    "dave",
+    "valtest",
+  ];
 
-  // Get list of usernames and randomly select 8 more
-  const profiles = [];
-  if (fedProfile?.data?.success) {
-    profiles.push(fedProfile.data);
-  }
-
-  // Fetch random usernames from the database
-  const usernames = await prisma.user
-    .findMany({
-      where: {
-        NOT: {
-          username: "federicofan", // Exclude federicofan since we already have it
-        },
-      },
-      select: {
-        username: true,
-      },
-      orderBy: {
-        // Random order
-        id: "asc",
-      },
-      take: 8,
-    })
-    .then((profiles) => profiles.map((p) => p.username));
-
-  // Get 8 random profiles
-  const randomProfiles = await Promise.all(
-    usernames.slice(0, 8).map(async (username) => {
-      const profile = await getFounderProfile({ username: username as string });
-      return profile?.data?.success ? profile.data : null;
+  const profiles = await Promise.all(
+    usernames.map(async (username) => {
+      const result = await getFounderProfile({ username });
+      return result?.data?.success ? result.data : null;
     })
   );
 
-  return [...profiles, ...randomProfiles.filter(Boolean)];
+  return profiles.filter(Boolean);
 }
 
 export async function Profiles() {
@@ -54,7 +35,7 @@ export async function Profiles() {
     <Section id="profiles" title="Featured Profiles">
       <div className="border-t">
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-0 lg:bg-grid-3 border-r pb-12 sm:bg-grid-2 relative bg-grid-1">
-          {profiles.map((profile, index) => (
+          {profiles.map((profile) => (
             <Link
               href={`/${profile?.data?.username}`}
               key={profile?.data?.id}
@@ -92,3 +73,6 @@ export async function Profiles() {
     </Section>
   );
 }
+
+// Add revalidation for 6 hours (21600 seconds)
+export const revalidate = 21600;

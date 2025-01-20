@@ -14,8 +14,8 @@ export const getFounderProfile = createSafeActionClient()
   .schema(schema)
   .action(async ({ parsedInput }): Promise<ActionResponse> => {
     try {
-      // Fetch user profile by username
-      const user = await prisma.user.findUnique({
+      // Fetch user profile and all related data in a single query
+      const userData = await prisma.user.findUnique({
         where: {
           username: parsedInput.username,
         },
@@ -37,65 +37,67 @@ export const getFounderProfile = createSafeActionClient()
           bsky: true,
           contactEmail: true,
           username: true,
+          skills: {
+            select: {
+              id: true,
+              category: true,
+              skill_id: true,
+              level: true,
+            },
+            orderBy: {
+              created_at: "desc",
+            },
+          },
+          education: {
+            select: {
+              id: true,
+              school: true,
+              degree: true,
+              field_of_study: true,
+              start_date: true,
+              end_date: true,
+            },
+            orderBy: {
+              created_at: "desc",
+            },
+          },
+          projects: {
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              url: true,
+              image_url: true,
+              tech_stack: true,
+              category: true,
+              status: true,
+              tags: true,
+              created_at: true,
+              updated_at: true,
+            },
+            orderBy: {
+              created_at: "desc",
+            },
+          },
+          stack: {
+            select: {
+              id: true,
+              category: true,
+              subcategory: true,
+              item: true,
+            },
+            orderBy: {
+              created_at: "desc",
+            },
+          },
         },
       });
 
-      if (!user) {
+      if (!userData) {
         return { success: false, error: appErrors.NOT_FOUND };
       }
 
-      // Fetch all related data in parallel
-      const [skills, education, projects, stack] = await Promise.all([
-        prisma.skills.findMany({
-          where: { user_id: user.id },
-          select: {
-            id: true,
-            category: true,
-            skill_id: true,
-            level: true,
-          },
-          orderBy: { created_at: "desc" },
-        }),
-        prisma.education.findMany({
-          where: { user_id: user.id },
-          select: {
-            id: true,
-            school: true,
-            degree: true,
-            field_of_study: true,
-            start_date: true,
-            end_date: true,
-          },
-          orderBy: { created_at: "desc" },
-        }),
-        prisma.projects.findMany({
-          where: { user_id: user.id },
-          select: {
-            id: true,
-            name: true,
-            description: true,
-            url: true,
-            image_url: true,
-            tech_stack: true,
-            category: true,
-            status: true,
-            tags: true,
-            created_at: true,
-            updated_at: true,
-          },
-          orderBy: { created_at: "desc" },
-        }),
-        prisma.stack.findMany({
-          where: { user_id: user.id },
-          select: {
-            id: true,
-            category: true,
-            subcategory: true,
-            item: true,
-          },
-          orderBy: { created_at: "desc" },
-        }),
-      ]);
+      const { skills, education, projects, stack, ...user } = userData;
 
       // Return combined profile data
       return {
