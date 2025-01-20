@@ -152,9 +152,10 @@ export const siteConfig = {
   ],
   pricing: [
     {
-      name: "Basic",
-      price: { monthly: "$9", yearly: "$99" },
-      frequency: { monthly: "month", yearly: "year" },
+      name: "Monthly",
+      price_anchor: "$9",
+      price: { monthly: "$9", yearly: "$5" },
+      frequency: { monthly: "month", yearly: "month" },
       description: "Perfect for individuals and small projects.",
       features: [
         "100 AI generations per month",
@@ -162,12 +163,13 @@ export const siteConfig = {
         "Email support",
         "Access to community forum",
       ],
-      cta: "Get Started",
+      cta: "Launch your website",
     },
     {
-      name: "Pro",
-      price: { monthly: "$29", yearly: "$290" },
-      frequency: { monthly: "month", yearly: "year" },
+      name: "Lifetime Deal",
+      price_anchor: "$59",
+      price: { monthly: "$29", yearly: "$29" },
+      frequency: { monthly: "month", yearly: "lifetime" },
       description: "Ideal for professionals and growing businesses.",
       features: [
         "1000 AI generations per month",
@@ -177,12 +179,14 @@ export const siteConfig = {
         "Custom AI model fine-tuning",
         "Collaboration tools",
       ],
-      cta: "Get Started",
+      popular: true,
+      cta: "Launch your website",
     },
     {
-      name: "Enterprise",
-      price: { monthly: "$999", yearly: "Custom" },
-      frequency: { monthly: "month", yearly: "year" },
+      name: "Source Code",
+      price_anchor: "$199",
+      price: { monthly: "$999", yearly: "$99" },
+      frequency: { monthly: "month", yearly: "lifetime" },
       description: "Tailored solutions for large organizations.",
       features: [
         "Unlimited AI generations",
@@ -192,8 +196,8 @@ export const siteConfig = {
         "On-premises deployment option",
         "Advanced analytics and reporting",
       ],
-      popular: true,
-      cta: "Get Started",
+
+      cta: "Deploy your website",
     },
   ],
   footer: {

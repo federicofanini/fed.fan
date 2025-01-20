@@ -131,6 +131,9 @@ function PricingTier({
                 ease: [0.4, 0, 0.2, 1],
               }}
             >
+              <span className="text-[18px] font-medium line-through text-muted-foreground mr-2">
+                {tier.price_anchor}
+              </span>
               {tier.price[billingCycle]}
               <span className="text-sm font-medium text-muted-foreground">
                 / {tier.frequency[billingCycle]}
@@ -258,14 +261,14 @@ export function Pricing() {
                 ))}
               </TabsList>
             )}
-          </Tabs>*/}
+          </Tabs> */}
         </div>
 
-        {/* <div className="grid grid-cols-1 lg:grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
           {siteConfig.pricing.map((tier, index) => (
             <PricingTier key={index} tier={tier} billingCycle={billingCycle} />
           ))}
-        </div> */}
+        </div>
       </div>
     </Section>
   );
