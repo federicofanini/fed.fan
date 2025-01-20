@@ -171,7 +171,7 @@ export const siteConfig = {
     },
     {
       id: "prod_1yBt3p2qkG3Z9sREp6PsH8",
-      name: "Lifetime Deal",
+      name: "Lifetime",
       price_anchor: "$59",
       price: { monthly: "$29", yearly: "$29" },
       frequency: { monthly: "month", yearly: "lifetime" },

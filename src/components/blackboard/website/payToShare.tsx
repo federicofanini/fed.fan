@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 import { siteConfig } from "@/lib/config";
+import { Badge } from "@/components/ui/badge";
 
 export function PayToShare() {
   const [isLoading, setIsLoading] = useState(false);
@@ -52,63 +53,81 @@ export function PayToShare() {
   };
 
   return (
-    <div className="mt-4 grid gap-4">
-      {siteConfig.pricing.map((tier) => (
-        <Card
-          key={tier.name}
-          className={cn(
-            "relative border shadow-sm",
-            tier.popular && "border-primary"
-          )}
-        >
-          <CardHeader className="space-y-2">
-            <CardTitle className="flex items-center justify-between">
-              <span className="text-lg font-semibold">{tier.name}</span>
-              <div className="text-right">
-                <span className="text-sm font-medium line-through text-muted-foreground mr-2">
-                  {tier.price_anchor}
-                </span>
-                <span className="text-2xl font-bold">
-                  {tier.price.yearly}
-                  <span className="text-sm text-muted-foreground">
-                    /{tier.frequency.yearly}
+    <div className="border border-b-0 grid grid-rows-1 mt-4 rounded-lg">
+      <div className="grid grid-cols-1 lg:grid-cols-3">
+        {siteConfig.pricing.map((tier) => (
+          <div
+            key={tier.name}
+            className={cn(
+              "outline-focus transition-transform-background relative z-10 box-border grid h-full w-full overflow-hidden text-foreground motion-reduce:transition-none lg:border-r border-t last:border-r-0",
+              tier.popular ? "border-primary border-l" : "border-muted"
+            )}
+          >
+            <div className="flex flex-col h-full">
+              <CardHeader className="border-b p-4 grid grid-rows-2 h-fit">
+                <CardTitle className="flex items-center justify-between">
+                  <span className="text-md font-semibold">{tier.name}</span>
+                  {tier.popular && (
+                    <Badge
+                      variant="default"
+                      className="hover:bg-primary/50 font-bold"
+                    >
+                      Hot deal 🔥
+                    </Badge>
+                  )}
+                </CardTitle>
+                <div className="pt-2 text-3xl font-bold">
+                  <span className="text-[18px] font-medium line-through text-muted-foreground mr-2">
+                    {tier.price_anchor}
                   </span>
-                </span>
-              </div>
-            </CardTitle>
-            <p className="text-sm text-muted-foreground">{tier.description}</p>
-          </CardHeader>
-
-          <CardContent className="space-y-4">
-            <ul className="space-y-2">
-              {tier.features.map((feature, i) => (
-                <li key={i} className="flex items-center text-sm">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-
-            <Button
-              className="w-full font-medium"
-              disabled={isLoading}
-              onClick={() => onSubscribeClick(tier.id)}
-            >
-              {isLoading ? (
-                <>
-                  <Loader className="mr-2 h-4 w-4 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                <div className="flex items-center justify-center">
-                  <Sparkles className="mr-2 h-4 w-4" />
-                  {tier.cta}
+                  {tier.price.yearly}
+                  <span className="text-sm font-medium text-muted-foreground">
+                    / {tier.frequency.yearly}
+                  </span>
                 </div>
-              )}
-            </Button>
-          </CardContent>
-        </Card>
-      ))}
+                <p className="text-[15px] font-medium text-muted-foreground">
+                  {tier.description}
+                </p>
+              </CardHeader>
+
+              <CardContent className="flex-grow p-4 pt-5">
+                <ul className="space-y-2">
+                  {tier.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-center">
+                      <Check className="mr-2 size-4 text-green-500" />
+                      <span className="font-medium">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+
+              <Button
+                size="lg"
+                className={cn(
+                  "w-full rounded-none shadow-none",
+                  tier.popular
+                    ? "bg-primary text-primary-foreground hover:bg-secondary-foreground"
+                    : "bg-muted text-foreground hover:bg-muted/80"
+                )}
+                disabled={isLoading}
+                onClick={() => onSubscribeClick(tier.id)}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <div className="flex items-center justify-center">
+                    <Sparkles className="size-4 mr-2" />
+                    {tier.cta}
+                  </div>
+                )}
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
