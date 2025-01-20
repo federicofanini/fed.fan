@@ -256,7 +256,7 @@ export default function WebsitePage() {
               </Form>
             </CardContent>
           </Card>
-          {!isPaid && <PayToShare />}
+          <PayToShare />
         </div>
 
         {/* Website Preview */}

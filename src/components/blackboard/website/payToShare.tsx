@@ -149,7 +149,7 @@ export function PayToShare() {
               )}
             </Button>
           </CardContent>
-          <CardFooter>
+          {/*<CardFooter>
             <div className="w-full p-4 rounded-lg border-2 border-dashed border-primary/60 bg-primary/5">
               <div className="space-y-3">
                 <div>
@@ -192,7 +192,7 @@ export function PayToShare() {
                 </div>
               </div>
             </div>
-          </CardFooter>
+          </CardFooter> */}
         </Card>
       ))}
     </div>
