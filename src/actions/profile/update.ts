@@ -2,7 +2,7 @@
 
 import { createSafeActionClient } from "next-safe-action";
 import { z } from "zod";
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 import type { ActionResponse } from "@/actions/types/action-response";
 import { createClient } from "@/utils/supabase/server";
 import { appErrors } from "../types/errors";

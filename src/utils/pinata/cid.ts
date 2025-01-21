@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/server";
 import { getImgUrl } from "./img-url";
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 
 /**
  * Updates an image URL in the specified table and column

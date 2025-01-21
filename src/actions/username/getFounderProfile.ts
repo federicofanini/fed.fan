@@ -2,7 +2,7 @@
 
 import { createSafeActionClient } from "next-safe-action";
 import { z } from "zod";
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 import { appErrors } from "../types/errors";
 import type { ActionResponse } from "../types/action-response";
 
@@ -90,6 +90,9 @@ export const getFounderProfile = createSafeActionClient()
               created_at: "desc",
             },
           },
+        },
+        cacheStrategy: {
+          ttl: 60 * 5, // 5 minutes
         },
       });
 

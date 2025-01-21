@@ -3,7 +3,7 @@
 import { createSafeActionClient } from "next-safe-action";
 import { z } from "zod";
 import type { ActionResponse } from "../types/action-response";
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 import { createClient } from "@/utils/supabase/server";
 import { appErrors } from "../types/errors";
 
@@ -33,6 +33,9 @@ export const fetchAvatarUrlAction = createSafeActionClient()
         },
         select: {
           avatar_url: true,
+        },
+        cacheStrategy: {
+          ttl: 60 * 5, // 5 minutes
         },
       });
 

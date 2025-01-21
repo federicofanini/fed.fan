@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 
 interface SearchParams {
   request_id?: string;

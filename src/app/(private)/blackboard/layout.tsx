@@ -5,7 +5,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { createClient } from "@/utils/supabase/server";
 import { DashboardHeader } from "@/components/dashboard-header";
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
