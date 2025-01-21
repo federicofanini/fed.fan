@@ -5,7 +5,7 @@ import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
 import type { ActionResponse } from "../types/action-response";
 import { appErrors } from "../types/errors";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/db";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { Client } from "@/utils/supabase/type";
 

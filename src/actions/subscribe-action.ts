@@ -5,7 +5,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import type { ActionResponse } from "@/actions/types/action-response";
 import { appErrors } from "@/actions/types/errors";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/db";
 
 const schema = z.object({
   email: z.string().email(),

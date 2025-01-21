@@ -1,5 +1,5 @@
 import type { Client } from "../type";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/db";
 
 export async function getUserQuery(supabase: Client, userId: string) {
   return prisma.user.findUniqueOrThrow({

@@ -3,7 +3,7 @@
 import { createSafeActionClient } from "next-safe-action";
 import type { ActionResponse } from "./types/action-response";
 import { appErrors } from "./types/errors";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/db";
 
 export const getUserCount = createSafeActionClient().action(
   async (): Promise<ActionResponse> => {
