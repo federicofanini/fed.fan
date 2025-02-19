@@ -198,6 +198,60 @@ export default function ProfilePage() {
                 />
               </div>
               <div>
+                <Label htmlFor="instagram">Instagram</Label>
+                <Input
+                  id="instagram"
+                  name="instagram"
+                  value={profile.instagram || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <Label htmlFor="youtube">YouTube</Label>
+                <Input
+                  id="youtube"
+                  name="youtube"
+                  value={profile.youtube || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <Label htmlFor="tiktok">TikTok</Label>
+                <Input
+                  id="tiktok"
+                  name="tiktok"
+                  value={profile.tiktok || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <Label htmlFor="discord">Discord</Label>
+                <Input
+                  id="discord"
+                  name="discord"
+                  value={profile.discord || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <Label htmlFor="telegram">Telegram</Label>
+                <Input
+                  id="telegram"
+                  name="telegram"
+                  value={profile.telegram || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <Label htmlFor="bsky">Bluesky</Label>
+                <Input
+                  id="bsky"
+                  name="bsky"
+                  value={profile.bsky || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
                 <Label htmlFor="contactEmail">Contact Email</Label>
                 <Input
                   id="contactEmail"

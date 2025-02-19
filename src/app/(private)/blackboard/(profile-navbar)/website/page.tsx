@@ -10,8 +10,6 @@ import { fetchUsernameAction } from "@/actions/username/fetch";
 import { toast } from "sonner";
 import { FounderPage, Founder } from "@/components/website/founder-page";
 import { getFounderProfile } from "@/actions/username/getFounderProfile";
-import { PayToShare } from "@/components/blackboard/website/payToShare";
-import { checkPaidStatusAction } from "@/actions/username/paid";
 import { checkUsernameAvailability } from "@/actions/username/checkUsername";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -37,7 +35,6 @@ export default function WebsitePage() {
   const [storedUsername, setStoredUsername] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [founderData, setFounderData] = useState<Founder | null>(null);
-  const [isPaid, setIsPaid] = useState(false);
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isUsernameAvailable, setIsUsernameAvailable] = useState<
     boolean | null
@@ -52,7 +49,6 @@ export default function WebsitePage() {
 
   useEffect(() => {
     fetchUsername();
-    checkPaidStatus();
   }, []);
 
   useEffect(() => {
@@ -84,13 +80,6 @@ export default function WebsitePage() {
     const timeoutId = setTimeout(checkUsername, 500);
     return () => clearTimeout(timeoutId);
   }, [form.watch("username")]);
-
-  async function checkPaidStatus() {
-    const result = await checkPaidStatusAction({});
-    if (result?.data?.success) {
-      setIsPaid(result.data.data.paid);
-    }
-  }
 
   async function fetchUsername() {
     const result = await fetchUsernameAction({});
@@ -261,23 +250,15 @@ export default function WebsitePage() {
                   <Button
                     type="submit"
                     disabled={
-                      isSubmitting &&
-                      isCheckingUsername &&
-                      !isUsernameAvailable &&
-                      !isPaid
+                      isSubmitting || isCheckingUsername || !isUsernameAvailable
                     }
                   >
-                    {isSubmitting
-                      ? "Updating..."
-                      : isPaid
-                      ? "Update Username"
-                      : "Upgrade to Update Username"}
+                    {isSubmitting ? "Updating..." : "Update Username"}
                   </Button>
                 </form>
               </Form>
             </CardContent>
           </Card>
-          {!isPaid && <PayToShare />}
         </div>
 
         {/* Website Preview */}
