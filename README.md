@@ -2,7 +2,7 @@
 
 # Founder Profile
 
-Open source link-in-bio platform for founders to showcase their startup portfolio, skills, and achievements.
+Open source link-in-bio website for founders to showcase their startup portfolio, skills, and achievements.
 
 </div>
 
