@@ -202,6 +202,10 @@ export const siteConfig = {
         icon: <Icons.twitter className="size-4" />,
         url: "https://x.com/FedericoFan",
       },
+      {
+        icon: <Icons.github className="size-4" />,
+        url: "https://github.com/federicofanini/fed.fan",
+      },
     ],
     links: [
       { text: "Terms", url: "/terms" },
