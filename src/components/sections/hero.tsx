@@ -6,6 +6,8 @@ import OutlinedButton from "../ui/outlined-button";
 import AvatarCircles from "../ui/avatar-circles";
 import { Check, Gift } from "lucide-react";
 import Image from "next/image";
+import { DomainRating } from "./domain-rating";
+import { GymbrahSponsor } from "./gymbrah-sponsor";
 
 const getAvatarUrls = () => {
   const mockAvatars = [
@@ -121,7 +123,13 @@ async function HeroCTA({ count }: { count: number }) {
     <div className="relative mt-6">
       <div className="flex w-full max-w-2xl flex-col items-center justify-center space-y-4 sm:flex-row  sm:space-y-0">
         <Link href="/login" className="text-sm text-secondary underline">
-          <OutlinedButton>{siteConfig.hero.cta}</OutlinedButton>
+          <OutlinedButton>
+            Build your{" "}
+            <span className="font-semibold text-black underline underline-offset-2 decoration-wavy decoration-cyan-500">
+              FREE
+            </span>{" "}
+            profile
+          </OutlinedButton>
         </Link>
       </div>
       <p className="mt-8 text-sm text-muted-foreground text-center font-mono">
@@ -138,20 +146,6 @@ async function Avatars({ count }: { count: number }) {
   return (
     <div className="mt-4 flex flex-col items-center justify-center">
       <AvatarCircles numPeople={count} avatarUrls={avatarUrls} />
-      <p className="mt-8 text-xs text-muted-foreground text-center font-mono flex items-center justify-center gap-2">
-        <span className="font-bold flex items-center justify-center text-green-500 border p-2 rounded-lg border-green-500/50">
-          <Gift className="w-4 h-4 mr-1 animate-pulse" />
-          50% OFF{" "}
-        </span>{" "}
-        for the first{" "}
-        <span className="font-semibold text-primary">
-          {USERS_DISCOUNT_LIMIT}
-        </span>{" "}
-        founders{" "}
-        <span className="font-semibold text-primary">
-          ({USERS_DISCOUNT_LIMIT - count} left)
-        </span>{" "}
-      </p>
     </div>
   );
 }
@@ -194,19 +188,9 @@ export async function Hero({ count }: { count: number }) {
       <div className="relative w-full p-6 lg:p-12 border-x overflow-hidden flex justify-center items-center">
         <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
           <HeroTitles />
+          <DomainRating />
+          <GymbrahSponsor />
           <UsernameInput />
-          <a
-            href="https://www.producthunt.com/posts/fed-fan?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-fed&#0045;fan"
-            target="_blank"
-          >
-            <img
-              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=800464&theme=neutral&t=1737390081106"
-              alt="fed.fan| Product Hunt"
-              width={250}
-              height={54}
-              className="mt-4"
-            />
-          </a>
           <HeroCTA count={count} />
           <Avatars count={count} />
         </div>

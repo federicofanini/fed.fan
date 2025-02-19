@@ -3,6 +3,10 @@ import { siteConfig } from "@/lib/config";
 import Image from "next/image";
 import Link from "next/link";
 import { SubscribeInput } from "../ui/subscribe-input";
+import { ProductHunt } from "./product-hunt";
+import { StartupFame } from "./startup-fame";
+import { GymbrahSponsor } from "./gymbrah-sponsor";
+import { DomainRating } from "./domain-rating";
 
 export function Footer() {
   return (
@@ -78,17 +82,10 @@ export function Footer() {
             className="w-auto h-auto"
           />
         </Link> */}
-        <a
-          href="https://startupfa.me/s/fedfan?utm_source=fed.fan"
-          target="_blank"
-        >
-          <img
-            src="https://startupfa.me/badges/featured-badge-small.webp"
-            alt="fed.fan - Build your brand. Connect with your network | Startup Fame"
-            width="224"
-            height="36"
-          />
-        </a>
+        <DomainRating />
+        <GymbrahSponsor />
+        <ProductHunt />
+        <StartupFame />
       </div>
       <BorderText
         text={siteConfig.footer.brandText}
