@@ -14,4 +14,5 @@ Open source link-in-bio platform for founders to showcase their startup portfoli
 - 🎨 Customizable profile themes
 - ⚡️ Built with Next.js, TypeScript, Tailwind CSS, Supabase, Prisma, Shadcn/UI
 
-[🌟 Demo](https://fed.fan/federicofan)
+[🌟 Demo here](https://fed.fan/federicofan)
+[Follow me on 𝕏](https://x.com/FedericoFan)
