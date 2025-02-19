@@ -4,7 +4,9 @@
 
 Open source link-in-bio platform for founders to showcase their startup portfolio, skills, and achievements.
 
-Features:
+</div>
+
+## Features
 
 - 🚀 Showcase your startup projects and portfolio
 - 💼 Highlight your skills, tech stack and experience
@@ -13,5 +15,3 @@ Features:
 - ⚡️ Built with Next.js, TypeScript, Tailwind CSS, Supabase, Prisma, Shadcn/UI
 
 [🌟 Demo](https://fed.fan/federicofan)
-
-</div>
