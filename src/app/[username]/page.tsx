@@ -90,22 +90,57 @@ export async function generateMetadata({
 
     if (!result?.data?.success || !result?.data?.data) {
       return {
-        title: "Profile",
-        description: "Founder profile",
+        title: "Profile Not Found | Founder Platform",
+        description: "This founder profile could not be found.",
+        robots: {
+          index: false,
+          follow: true,
+        },
       };
     }
 
+    const founderData = result.data.data;
+    const fullName = founderData.full_name || founderData.username;
+    const location = founderData.location
+      ? ` from ${founderData.location}`
+      : "";
+    const skills = founderData.skills?.map((s: any) => s.skill_id).join(", ");
+
     return {
-      title:
-        result?.data?.data?.full_name ||
-        result?.data?.data?.username ||
-        "Profile",
-      description: result?.data?.data?.bio || "Founder profile",
+      title: `${fullName} | Founder Profile`,
+      description:
+        founderData.bio ||
+        `${fullName}${location} - Founder profile showcasing projects, skills, and experience. ${
+          skills ? `Skilled in ${skills}.` : ""
+        }`,
+      openGraph: {
+        title: `${fullName} | Founder Profile`,
+        description: founderData.bio || `View ${fullName}'s founder profile`,
+        images: founderData.avatar_url ? [{ url: founderData.avatar_url }] : [],
+        type: "profile",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${fullName} | Founder Profile`,
+        description: founderData.bio || `View ${fullName}'s founder profile`,
+        images: founderData.avatar_url ? [founderData.avatar_url] : [],
+      },
+      robots: {
+        index: true,
+        follow: true,
+      },
+      alternates: {
+        canonical: `/${params.username}`,
+      },
     };
   } catch (error) {
     return {
-      title: "Profile",
-      description: "Founder profile",
+      title: "Profile Error | Founder Platform",
+      description: "There was an error loading this founder profile.",
+      robots: {
+        index: false,
+        follow: true,
+      },
     };
   }
 }
